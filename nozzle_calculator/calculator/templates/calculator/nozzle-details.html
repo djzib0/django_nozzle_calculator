@@ -1,0 +1,83 @@
+{% extends 'calculator/base.html' %}
+
+{% block content %}
+  <div class="item-box">
+    <div class="item-header-box">
+      <p>Dysza {{ nozzle.diameter }}
+       profil {{ nozzle.profile }}
+      {{ ratio }}D {{ type_name }}</p>
+    </div>
+
+    <div class="item-details">
+      <p>Szczegóły</p>
+      <div class="item-details-box">
+        <p id="item-detail-name">Średnica: </p>
+        <p id="item-detail-value">{{ nozzle.diameter }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Wysokość:</p>
+        <p id="item-detail-value">{{ nozzle.profile_height }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Ciężar wg zapytania ofertowego:</p>
+        <p id="item-detail-value">{{ nozzle.theoretical_weight }}kg</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Ciężar rzeczywisty:</p>
+        <p id="item-detail-value">{{ nozzle.real_weight }}kg</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Pierścień wewnętrzny:</p>
+        <p id="item-detail-value">{{ type_name }}</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Grubość pierścienia kawitacyjnego:</p>
+        <p id="item-detail-value">{{ nozzle.inner_ring_thickness_propeller_zone }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Grubość wlotu:</p>
+        <p id="item-detail-value">{{ nozzle.inner_ring_thickness_inlet_zone }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Grubość wylotu:</p>
+        <p id="item-detail-value">{{ nozzle.inner_ring_thickness_outlet_zone }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Grubość i ilość żeber:</p>
+        <p id="item-detail-value">{{ nozzle.ribs_thickness }}mm - {{ nozzle.ribs_quantity}}szt.</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Grubość i ilość półek:</p>
+        <p id="item-detail-value">{{ nozzle.segments_thickness }}mm - {{ nozzle.segments_quantity}}szt.</p>
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Dysza ze skrzynią?</p>
+        {% if nozzle.has_headbox == True %}
+         <p id="item-detail-value">Tak</p>
+        {% else %}
+          <p id="item-detail-value">Nie</p>
+        {% endif %}
+      </div>
+      <div class="item-details-box">
+        <p id="item-detail-name">Dysza z pierścieniem wylotowym?</p>
+        {% if nozzle.has_outlet_ring == True %}
+         <p id="item-detail-value">Tak</p>
+        {% else %}
+          <p id="item-detail-value">Nie</p>
+        {% endif %}
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
+
+  <a href="{% url 'calculator:nozzle_orders' nozzle.id %}">
+    <button>Orders</button>
+  </a>
+
+{% endblock content %}

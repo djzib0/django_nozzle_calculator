@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nozzle Calculator</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+  <link rel="stylesheet" href="{% static 'navbar.css' %}">
+</head>
+<body>
+  {% include 'calculator/navbar.html' %}
+  {% block content %}
+  {% endblock content %}
+</body>
+</html>

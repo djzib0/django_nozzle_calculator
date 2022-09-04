@@ -1,0 +1,35 @@
+#navbar {
+    width: 100%;
+    height: 50px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background-color: blue;
+    display: flex;
+    color: white;
+    font-weight: bold;
+    justify-content: space-around;
+    align-content: center;
+}
+
+#navbar-item-container {
+    background-color: blue;
+    display: flex;
+    align-items: center;
+}
+
+#navbar-item-container:hover {
+    background-color: lightblue;
+    text-decoration: none;
+    color: blue;
+}
+
+#navbar-link {
+    text-decoration: none;
+    color: white;
+    height: 200px;
+    padding: 0 1.125em;
+    margin: 0;
+    transition: background-color 0.2s;
+}
+

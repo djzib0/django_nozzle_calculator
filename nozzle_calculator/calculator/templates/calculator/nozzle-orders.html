@@ -1,0 +1,10 @@
+{% extends 'calculator/base.html' %}
+
+{% block content %}
+
+<p>Nozzle {{ nozzle.diameter }}</p>
+{% for order in orders %}
+<p>- {{ order.order_dmcg_number }}</p>
+{% endfor %}
+
+{% endblock content %}
