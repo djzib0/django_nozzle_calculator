@@ -1,6 +1,7 @@
 {% extends 'calculator/base.html' %}
 
 {% block content %}
+<div class="content-main">
   <div class="item-box">
     <div class="item-header-box">
       <p>Dysza {{ nozzle.diameter }}
@@ -67,14 +68,24 @@
         {% endif %}
       </div>
     </div>
-
-
-
-
-
-
-
   </div>
+
+  <div class="item-box">
+    <div class="item-header-box">
+      <p>Dysza {{ nozzle.diameter }}
+       profil {{ nozzle.profile }}
+      {{ ratio }}D {{ type_name }}</p>
+    </div>
+
+    <div class="item-details">
+      <p>Szczegóły</p>
+      <div class="item-details-box">
+        <p id="item-detail-name">Średnica: </p>
+        <p id="item-detail-value">{{ nozzle.diameter }}mm</p>
+      </div>
+    </div>
+  </div>
+</div>
 
   <a href="{% url 'calculator:nozzle_orders' nozzle.id %}">
     <button>Orders</button>
