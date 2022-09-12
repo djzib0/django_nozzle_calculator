@@ -8,8 +8,9 @@ body {
 .content-main {
     display: flex;
     margin: 0 2em;
-    /*justify-content: flex-start;*/
-    /*align-items: start;*/
+    width: 900px;
+    justify-content: space-between;
+    margin: 0 auto;
 }
 
 .item-box {
@@ -43,9 +44,38 @@ body {
 
 .item-details-box {
     display: flex;
+    align-items: center;
 }
 
-#item-detail-name {
+/* items styles */
+#details {
+    text-decoration: underline;
+}
+
+.item-detail-name {
     width: 12em;
     font-weight: bold;
+}
+
+.item-detail-value {
+    margin: auto 1em;
+    width: 2rem;
+}
+
+.action-btn {
+    margin-left: 0.5em;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    height: 2rem;
+    padding: 0.5rem 1rem;
+    margin: auto 1em;
+    transition: background-color 0.2s;
+    transition: color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: blue;
+    color: white;
+    border: 1px solid white;
 }
