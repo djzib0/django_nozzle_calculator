@@ -1,17 +1,18 @@
 from django.shortcuts import render
 from .models import Nozzle, Order
+from .forms import NozzleForm
 
 from .functions import translate_type_name
 
 # Create your views here.
-def indexView(request):
+def index_view(request):
     context = {}
     template = 'calculator/index.html'
 
     return render(request, template, context)
 
 
-def nozzlesView(request):
+def nozzles_view(request):
     nozzles = Nozzle.objects.all()
 
     context = {'nozzles': nozzles}
@@ -20,7 +21,7 @@ def nozzlesView(request):
     return render(request, template, context)
 
 
-def nozzleDetailsView(request, nozzle_id):
+def nozzle_details_view(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     ratio = round((nozzle.profile_height / nozzle.diameter), 1)
     type_name = translate_type_name(str(nozzle.inner_ring_type))
@@ -37,12 +38,14 @@ def nozzleDetailsView(request, nozzle_id):
     return render(request, template, context)
 
 
-def nozzleOrdersView(request, nozzle_id):
+def nozzle_orders_view(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     orders = nozzle.order_set.order_by('-date_created')
+    ratio = round((nozzle.profile_height / nozzle.diameter), 1)
 
     context = {'nozzle': nozzle,
                'orders': orders,
+               'ratio': ratio,
                }
     template = 'calculator/nozzle-orders.html'
 

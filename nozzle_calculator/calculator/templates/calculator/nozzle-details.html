@@ -82,7 +82,9 @@
       <div class="item-details-box">
         <p class="item-detail-name">Ilość powiązanych zleceń</p>
         <p class="item-detail-value">{{ nozzle_total_orders }}</p>
-        <button class="action-btn">Pokaż</button>
+        <a href="{% url 'calculator:nozzle_orders' nozzle.id %}">
+          <button class="action-btn" href="">Pokaż</button>
+        </a>
       </div>
       <div class="item-details-box">
         <p class="item-detail-name">Ilość kalkulacji</p>
@@ -92,9 +94,5 @@
     </div>
   </div>
 </div>
-
-  <a href="{% url 'calculator:nozzle_orders' nozzle.id %}">
-    <button>Orders</button>
-  </a>
 
 {% endblock content %}

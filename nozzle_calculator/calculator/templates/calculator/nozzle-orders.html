@@ -1,7 +1,37 @@
 {% extends 'calculator/base.html' %}
 
 {% block content %}
-
+<div class="content-main">
+  <div class="item-box single-column">
+    <div class="item-header-box">
+      <p>Dysza {{ nozzle.diameter }}
+       profil {{ nozzle.profile }}
+      {{ ratio }}D {{ type_name }}
+      {{ nozzle.segments_quantity}} x {{ nozzle.segments_thickness}}mm - półki,
+      {{ nozzle.ribs_quantity}} x {{ nozzle.ribs_thickness}}mm - żebra,
+      {{ nozzle.theoretical_weight }}kg</p>
+    </div>
+    <div class="item-details">
+      <div class="item-details-box" style="justify-content: center">
+        <button class="add-btn">Dodaj nowe zamówienie</button>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Numer zlecenia DMCG</p>
+        <p class="item-detail-name">Numer zlecenia klienta</p>
+        <p class="item-detail-name">Data dodania</p>
+      </div>
+      <div class="item-details-box">
+        {% for order in orders %}
+        <p class="item-detail-value">{{ order.order_dmcg_number }}</p>
+        <p class="item-detail-value">{{ order.order_client_number }}</p>
+        <p class="item-detail-value">{{ order.date_created }}</p>
+        {% empty %}
+        <p class="item-detail-value">Brak powiązanych zamówień</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 <p>Nozzle {{ nozzle.diameter }}</p>
 {% for order in orders %}
 <p>- {{ order.order_dmcg_number }}</p>

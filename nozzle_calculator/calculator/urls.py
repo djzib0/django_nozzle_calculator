@@ -4,8 +4,8 @@ from .views import *
 app_name = 'calculator'
 
 urlpatterns = [
-    path('', indexView, name='index'),
-    path('nozzles/', nozzlesView, name='nozzles'),
-    path('nozzles/<int:nozzle_id>/', nozzleDetailsView, name='nozzle_details'),
-    path('nozzle/<int:nozzle_id>/orders', nozzleOrdersView, name='nozzle_orders'),
+    path('', index_view, name='index'),
+    path('nozzles/', nozzles_view, name='nozzles'),
+    path('nozzles/<int:nozzle_id>/', nozzle_details_view, name='nozzle_details'),
+    path('nozzle/<int:nozzle_id>/orders', nozzle_orders_view, name='nozzle_orders'),
 ]

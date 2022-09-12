@@ -23,6 +23,10 @@ body {
     margin: 1em auto;
 }
 
+.single-column {
+    min-width: 600px;
+}
+
 .item-header-box {
     margin: 0;
     padding-left: 1em;
@@ -59,7 +63,7 @@ body {
 
 .item-detail-value {
     margin: auto 1em;
-    width: 2rem;
+    width: 9em;
 }
 
 .action-btn {
@@ -69,7 +73,6 @@ body {
     border-radius: 0.5em;
     height: 2rem;
     padding: 0.5rem 1rem;
-    margin: auto 1em;
     transition: background-color 0.2s;
     transition: color 0.2s;
 }
@@ -78,4 +81,15 @@ body {
     background-color: blue;
     color: white;
     border: 1px solid white;
+}
+
+.add-btn {
+    margin-left: 0.5em;
+    background-color: limegreen;
+    color: white;
+    border: 1px solid limegreen;
+    border-radius: 0.5em;
+    height: 2rem;
+    padding: 0.5rem 1rem;
+    margin-top: 0.5em;
 }
