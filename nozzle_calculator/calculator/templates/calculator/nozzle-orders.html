@@ -34,8 +34,13 @@
             {% endlanguage %}
             </td>
             <td><button class="edit-btn">Edytuj</button></td>
+            {% empty %}
+          <td colspan="3" style="color: red;"><p>Brak powiązanych zamówień</p></td>
           </tr>
+
+
           {% endfor %}
+
         </table>
       </div>
 
