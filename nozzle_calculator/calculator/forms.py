@@ -12,7 +12,7 @@ class NozzleForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = {'order_client_number', 'order_dmcg_number',}
         labels = {'order_dmcg_number': 'Numer zlecenia DMCG',
                   'order_client_number': 'Numer zlecenia klienta'}
 

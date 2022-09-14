@@ -1,0 +1,30 @@
+{% extends 'calculator/base.html' %}
+
+{% block content %}
+<div class="content-main">
+  <div class="item-box single-column">
+    <div class="item-header-box">
+      <p>Dysza {{ nozzle.diameter }}
+       profil {{ nozzle.profile }}
+      {{ ratio }}D {{ type_name }}
+      {{ nozzle.segments_quantity}} x {{ nozzle.segments_thickness}}mm - półki,
+      {{ nozzle.ribs_quantity}} x {{ nozzle.ribs_thickness}}mm - żebra,
+      {{ nozzle.theoretical_weight }}kg</p>
+    </div>
+    <div class="item-details">
+      <div class="item-details-box" style="justify-content: center">
+        <div class="item-detail-name">
+        <form action="{% url 'calculator:add_nozzle_order' nozzle.id %}" method="post">
+        {% csrf_token %}
+          <p>Numerek DMCG ggg</p>
+          <p>{{ form.order_dmcg_number }}</p>
+          <p>Numerek DMCG ggg</p>
+          <p>{{ form.order_client_number }}</p>
+        <button name="submit" class="add-btn">Dodaj</button>
+        </form>
+        <a href="{% url 'calculator:nozzle_orders' nozzle.id %}"><button class="add-btn">Anuluj</button></a>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

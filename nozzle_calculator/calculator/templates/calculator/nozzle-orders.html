@@ -13,7 +13,7 @@
     </div>
     <div class="item-details">
       <div class="item-details-box" style="justify-content: center">
-        <button class="add-btn">Dodaj nowe zamówienie</button>
+        <a href="{% url 'calculator:add_nozzle_order' nozzle.id %}"><button class="add-btn">Dodaj nowe zamówienie</button></a>
       </div>
       <div class="item-details-box" style="justify-content: center">
         <table>
