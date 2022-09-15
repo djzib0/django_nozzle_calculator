@@ -6,7 +6,7 @@ class NozzleForm(forms.ModelForm):
     class Meta:
         model = Nozzle
         fields = '__all__'
-        labels = {'diameter': 'średnica'}
+        labels = {'diameter': 'Średnica'}
 
 
 class OrderForm(forms.ModelForm):

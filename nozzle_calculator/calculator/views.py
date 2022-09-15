@@ -53,6 +53,7 @@ def nozzle_orders_view(request, nozzle_id):
 
 def add_nozzle_order(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
+    existing_orders_count = 0
     if request.method != 'POST':
         form = OrderForm()
     else:
@@ -60,13 +61,35 @@ def add_nozzle_order(request, nozzle_id):
         if form.is_valid():
             new_order = form.save(commit=False)
             new_order.nozzle = nozzle
-            new_order.save()
-            return redirect('calculator:nozzle_orders', nozzle.id)
+            existing_orders_count = Order.objects.filter(order_dmcg_number=new_order.order_dmcg_number).count()
+            if existing_orders_count < 1:
+                new_order.save()
+                return redirect('calculator:nozzle_orders', nozzle.id)
+            else:
+                message = "Takie zlecenie już kurwa istnieje."
+
+                context = {'message': message,
+                           'form': form,
+                           'nozzle_id': nozzle.id,
+                           'nozzle': nozzle,
+                           }
+                template = 'calculator/add_nozzle_order.html'
+
+                return render(request, template, context)
 
     context = {'form': form,
                'nozzle_id': nozzle.id,
-               'nozzle': nozzle}
+               'nozzle': nozzle,
+               }
     template = 'calculator/add_nozzle_order.html'
 
     return render(request, template, context)
 
+
+def show_order_exist(request, nozzle_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+
+    context = {'nozzle': nozzle}
+    template = 'calculator/order_exist_message.html'
+
+    return render(request, template, context)
