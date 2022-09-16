@@ -15,6 +15,17 @@ th, td {
     padding: 0.125em;
 }
 
+/* text style */
+.alert-paragraph {
+    font-size: 0.875em;
+    background-color: palevioletred;
+    color: darkred;
+    border: 1px dotted darkred;
+    border-radius: 0.125em;
+    padding: 0.125em 0.250em;
+    width: max-content;
+}
+
 
 /* layout */
 .content-main {
@@ -33,7 +44,6 @@ th, td {
     background-color: white;
     border-radius: 0.5em;
     margin: 1em auto;
-    /*padding-top: 0;*/
 }
 
 .single-column {
@@ -61,8 +71,9 @@ th, td {
 
 .item-details-box {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding-bottom: 0.5em;
+    padding-bottom: 0.125em;
 }
 
 /* items styles */
@@ -71,13 +82,16 @@ th, td {
 }
 
 .item-detail-name {
-    width: 12em;
+    width: 16em;
     font-weight: bold;
+    justify-content: center;
+    text-align: left;
+    /*margin: 0.5em;*/
 }
 
 .item-detail-value {
     margin: auto 1em;
-    width: 9em;
+    width: 5em;
     /*padding: 0;*/
 }
 
@@ -92,7 +106,6 @@ th, td {
     cursor: pointer;
     transition: background-color 0.2s;
     transition: color 0.2s;
-
 }
 
 .action-btn:hover {
@@ -125,29 +138,17 @@ th, td {
 
 
 .edit-btn {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+    margin: 0.5em 0.5em;
     background-color: #3db1ff;
     color: white;
     cursor: pointer;
     border: 1px solid white;
     border-radius: 0.5em;
     height: 2rem;
+    width: 15rem;
 }
 
 .content-row {
     display: flex;
     flex-direction: row;
-}
-
-.cancel-a {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    text-decoration: none;
-    background-color: #3db1ff;
-    color: white;
-    border: 1px solid white;
-    border-radius: 0.5em;
-    padding: 0.5rem 1rem;
-
 }
