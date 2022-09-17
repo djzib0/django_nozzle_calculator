@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Nozzle, Order
 from .forms import NozzleForm, OrderForm
-from .filters import NozzleFilter
+from .filters import NozzleFilter, OrderFilter
 
 from .functions import translate_type_name
 
@@ -90,10 +90,14 @@ def add_nozzle_order(request, nozzle_id):
     return render(request, template, context)
 
 
-def show_order_exist(request, nozzle_id):
-    nozzle = Nozzle.objects.get(id=nozzle_id)
+def orders_view(request):
+    orders = Order.objects.all()
+    orders_filter = OrderFilter(request.GET, queryset=orders)
 
-    context = {'nozzle': nozzle}
-    template = 'calculator/order_exist_message.html'
+    orders = orders_filter.qs
+
+    context = {'orders_filter': orders_filter,
+               'orders': orders}
+    template = 'calculator/orders.html'
 
     return render(request, template, context)

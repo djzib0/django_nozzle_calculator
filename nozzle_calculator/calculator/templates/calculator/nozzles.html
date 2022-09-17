@@ -1,10 +1,82 @@
 {% extends 'calculator/base.html' %}
 
 {% block content %}
-<form method="get">
-  {{ nozzle_filter.form.as_p }}
-  <button class="edit-btn" type="submit">Szukaj</button>
-</form>
+
+<div class="content-main">
+  <div class="item-box">
+    <div class="item-header-box">
+      Filtrowanie
+    </div>
+    <form method="get">
+    <div class="item-details">
+      <div class="item-details-box">
+        <div>Średnica:</div>
+        <div>{{ nozzle_filter.form.diameter }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Profil:</div>
+        <div>{{ nozzle_filter.form.profile }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Numer rysunku:</div>
+        <div>{{ nozzle_filter.form.drawing_number }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Wysokość:</div>
+        <div>{{ nozzle_filter.form.profile_height }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Pierścień wewnętrzny:</div>
+        <div>{{ nozzle_filter.form.inner_ring_type }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość pierścienia kawitacyjnego:</div>
+        <div>{{ nozzle_filter.form.inner_ring_thickness_propeller_zone }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość wlotu:</div>
+        <div>{{ nozzle_filter.form.inner_ring_thickness_inlet_zone }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość wylotu:</div>
+        <div>{{ nozzle_filter.form.inner_ring_thickness_outlet_zone }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość żeber:</div>
+        <div>{{ nozzle_filter.form.ribs_thickness }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Ilość żeber:</div>
+        <div>{{ nozzle_filter.form.ribs_quantity }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość półek:</div>
+        <div>{{ nozzle_filter.form.segments_thickness }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Ilość półek:</div>
+        <div>{{ nozzle_filter.form.segments_quantity }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Dysza ze skrzynią?</div>
+        <div>{{ nozzle_filter.form.has_headbox }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Dysza ze skrzynią?</div>
+        <div>{{ nozzle_filter.form.has_outlet_ring }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>
+          <form method="get">
+            <button class="edit-btn" type="submit">Szukaj</button>
+          </form>
+        </div>
+        <div>Button</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% for nozzle in nozzles %}
   {{ nozzle.diameter }}

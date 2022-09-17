@@ -152,3 +152,7 @@ th, td {
     display: flex;
     flex-direction: row;
 }
+
+.wide_form {
+    width: 12em;
+}

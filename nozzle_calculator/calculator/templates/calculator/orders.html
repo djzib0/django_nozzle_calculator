@@ -1,0 +1,15 @@
+{% extends 'calculator/base.html' %}
+
+{% block content %}
+
+<form method="get">
+  {{ orders_filter.form }}
+  <button type="submit">Szukaj</button>
+</form>
+
+{% for order in orders %}
+ {{ order }}
+{% endfor %}
+
+
+{% endblock content %}
