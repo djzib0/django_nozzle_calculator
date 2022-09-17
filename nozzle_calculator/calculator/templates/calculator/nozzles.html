@@ -1,8 +1,15 @@
 {% extends 'calculator/base.html' %}
 
 {% block content %}
-  {% for nozzle in nozzles %}
-    <p><a href="{% url 'calculator:nozzle_details' nozzle.id %}">
-      {{ nozzle.diameter }}</a></p>
-  {% endfor %}
+<form method="get">
+  {{ nozzle_filter.form.as_p }}
+  <button class="edit-btn" type="submit">Szukaj</button>
+</form>
+
+{% for nozzle in nozzles %}
+  {{ nozzle.diameter }}
+<a href="{% url 'calculator:nozzle_details' nozzle.id %}">Otwórz</a>
+{% endfor %}
+
+
 {% endblock content %}

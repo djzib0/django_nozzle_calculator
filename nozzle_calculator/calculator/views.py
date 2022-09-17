@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Nozzle, Order
 from .forms import NozzleForm, OrderForm
+from .filters import NozzleFilter
 
 from .functions import translate_type_name
 
@@ -14,8 +15,13 @@ def index_view(request):
 
 def nozzles_view(request):
     nozzles = Nozzle.objects.all()
+    nozzle_filter = NozzleFilter(request.GET,
+                                 queryset=nozzles)
+    nozzles = nozzle_filter.qs
 
-    context = {'nozzles': nozzles}
+    context = {'nozzles': nozzles,
+               'nozzle_filter': nozzle_filter,
+               }
     template = 'calculator/nozzles.html'
 
     return render(request, template, context)
