@@ -3,14 +3,23 @@ from django import forms
 
 from .models import *
 
+
 class NozzleFilter(django_filters.FilterSet):
     INNER_RING_TYPES = (('Complete st. st. inside', 'Complete st. st. inside'),
                         ('St. st. ring inside', 'St. st. ring inside'),
                         ('Complete steel', 'Complete steel'),
                         ('St. st. ring and outlet', 'St. st. ring and outlet'))
 
-    diameter = django_filters.CharFilter(widget=forms.TextInput(attrs={"class":"wide_form"}))
+    YES_NO_CHOICES = (('True', 'Tak'),
+                      ('False', 'Nie')
+                      )
+
+
+    # diameter = django_filters.CharFilter(widget=forms.TextInput(attrs={"class":"wide_form"}))
+    profile = django_filters.ChoiceFilter(label="test label", choices=INNER_RING_TYPES, widget=forms.Select(attrs={"class":"wide_form"}))
     inner_ring_type = django_filters.ChoiceFilter(label="test label", choices=INNER_RING_TYPES, widget=forms.Select(attrs={"class":"wide_form"}))
+    has_headbox = django_filters.ChoiceFilter(choices=YES_NO_CHOICES, widget=forms.Select(attrs={"class":"wide_form"}))
+    has_outlet_ring = django_filters.ChoiceFilter(choices=YES_NO_CHOICES, widget=forms.Select(attrs={"class":"wide_form"}))
 
     class Meta:
         model = Nozzle
