@@ -1,5 +1,6 @@
 body {
     font-family: Arial;
+    font-size: 12px;
     margin: 0 auto;
     padding: 0;
 }
@@ -24,6 +25,10 @@ th, td {
     border-radius: 0.125em;
     padding: 0.125em 0.250em;
     width: max-content;
+}
+
+.description {
+    font-size: 0.875em;
 }
 
 
@@ -73,7 +78,8 @@ th, td {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 0.125em;
+    padding: 0;
+    height: 1.75em;
 }
 
 /* items styles */
@@ -82,17 +88,25 @@ th, td {
 }
 
 .item-detail-name {
-    width: 16em;
+    width: 20em;
     font-weight: bold;
     justify-content: center;
     text-align: left;
+    margin: 0.5em 0.125em;
     /*margin: 0.5em;*/
 }
 
 .item-detail-value {
-    margin: auto 1em;
-    width: 5em;
+    margin: 0 1em;
+    width: 10em;
     /*padding: 0;*/
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.125em 0.25em;
 }
 
 .action-btn {
@@ -109,6 +123,26 @@ th, td {
 }
 
 .action-btn:hover {
+    background-color: blue;
+    color: white;
+    border: 1px solid white;
+}
+
+.show-btn {
+    font-size: 0.75em;
+    text-align: center;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    height: 1.125rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    transition: color 0.2s;
+}
+
+.show-btn:hover {
     background-color: blue;
     color: white;
     border: 1px solid white;
@@ -139,10 +173,10 @@ th, td {
 
 .edit-btn {
     margin: 0.5em 0.5em;
-    background-color: #3db1ff;
+    background-color: #0077b6;
     color: white;
     cursor: pointer;
-    border: 1px solid white;
+    border: 1px solid #00b4d8;
     border-radius: 0.5em;
     height: 2rem;
     width: 15rem;

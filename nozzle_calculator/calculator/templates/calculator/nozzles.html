@@ -65,7 +65,7 @@
         <div>Dysza z pierścieniem wylotowym?</div>
         <div id="has_outlet_ring_input">{{ nozzle_filter.form.has_outlet_ring }}</div>
       </div>
-      <div class="item-details-box">
+      <div class="button-box">
         <div>
           <form method="get" id="nozzle_form">
             <button class="edit-btn" type="submit">Szukaj</button>
@@ -83,20 +83,21 @@
         <div class="item-details-box">Wybierz kryteria wyszukiwania aby wyświetlić wyniki</div>
         {% endif %}
         {% for nozzle in nozzles %}
-        <div class="item-details-box">{{ nozzle.diameter }}</div>
-<!--        <a href="{% url 'calculator:nozzle_details' nozzle.id %}">Otwórz</a>-->
+        <div class="item-details-box">
+          <p class="description">Dysza {{ nozzle.diameter }}
+           profil {{ nozzle.profile }} H={{ nozzle.profile_height }}mm {{ type_name }},
+            {{ nozzle.segments_quantity}} x {{ nozzle.segments_thickness}}mm - półki,
+            {{ nozzle.ribs_quantity}} x {{ nozzle.ribs_thickness}}mm - żebra,
+            {{ nozzle.theoretical_weight }}kg</p>
+          <a href="{% url 'calculator:nozzle_details' nozzle.id %}">
+            <button type="button" class="show-btn">Pokaż</button>
+          </a>
+        </div>
         {% endfor %}
-
-
       </div>
     </div>
   </div>
 
-
-{% for nozzle in nozzles %}
-  {{ nozzle.diameter }}
-<a href="{% url 'calculator:nozzle_details' nozzle.id %}">Otwórz</a>
-{% endfor %}
 
 
 

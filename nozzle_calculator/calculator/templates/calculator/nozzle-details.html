@@ -10,9 +10,9 @@
     </div>
 
     <div class="item-details">
-      <div class="item-details-box">
+      <div class="button-box">
         <form>
-          <input type="button" class="action-btn" value="Wróć" onclick="history.back()"
+        <input type="button" class="action-btn" value="Wróć" onclick="history.back()"
         </form>
         <button class="edit-btn">Edytuj</button>
       </div>
@@ -89,13 +89,13 @@
         <p class="item-detail-name">Ilość powiązanych zleceń</p>
         <p class="item-detail-value">{{ nozzle_total_orders }}</p>
         <a href="{% url 'calculator:nozzle_orders' nozzle.id %}">
-          <button class="action-btn" type="button">Pokaż</button>
+          <button class="show-btn" type="button">Pokaż</button>
         </a>
       </div>
       <div class="item-details-box">
         <p class="item-detail-name">Ilość kalkulacji</p>
         <p class="item-detail-value">test</p>
-        <button class="action-btn" type="button">Pokaż</button>
+        <button class="show-btn" type="button">Pokaż</button>
       </div>
     </div>
   </div>
