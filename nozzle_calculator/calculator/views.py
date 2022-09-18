@@ -23,6 +23,7 @@ def nozzles_view(request):
 
     context = {'nozzles': nozzles,
                'nozzle_filter': nozzle_filter,
+               'nozzles_count': nozzles_count,
                }
     template = 'calculator/nozzles.html'
 
@@ -40,6 +41,7 @@ def nozzle_details_view(request, nozzle_id):
                'ratio': ratio,
                'type_name': type_name,
                'nozzle_total_orders': nozzle_total_orders,
+               'nozzle_id': nozzle_id,
                }
     template = 'calculator/nozzle-details.html'
 

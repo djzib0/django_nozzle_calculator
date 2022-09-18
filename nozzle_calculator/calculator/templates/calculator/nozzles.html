@@ -75,15 +75,29 @@
       </div>
     </div>
   </div>
-</div>
+  <div class="content-main">
+    <div class="item-box">
+      <div class="item-header-box">Wyniki</div>
+      <div class="item-details">
+        {% if nozzles_count == 0 %}
+        <div class="item-details-box">Wybierz kryteria wyszukiwania aby wyświetlić wyniki</div>
+        {% endif %}
+        {% for nozzle in nozzles %}
+        <div class="item-details-box">{{ nozzle.diameter }}</div>
+<!--        <a href="{% url 'calculator:nozzle_details' nozzle.id %}">Otwórz</a>-->
+        {% endfor %}
 
 
-{% if nozzles %}
+      </div>
+    </div>
+  </div>
+
+
 {% for nozzle in nozzles %}
   {{ nozzle.diameter }}
 <a href="{% url 'calculator:nozzle_details' nozzle.id %}">Otwórz</a>
 {% endfor %}
-{% endif %}
+
 
 
 {% endblock content %}
