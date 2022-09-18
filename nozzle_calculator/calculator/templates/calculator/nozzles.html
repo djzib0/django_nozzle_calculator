@@ -1,5 +1,5 @@
 {% extends 'calculator/base.html' %}
-
+{% load static %}
 {% block content %}
 
 <div class="content-main">
@@ -11,77 +11,79 @@
     <div class="item-details">
       <div class="item-details-box">
         <div>Średnica:</div>
-        <div>{{ nozzle_filter.form.diameter }}</div>
+        <div id="diameter_input">{{ nozzle_filter.form.diameter }}</div>
       </div>
       <div class="item-details-box">
         <div>Profil:</div>
-        <div>{{ nozzle_filter.form.profile }}</div>
+        <div id="profile_input">{{ nozzle_filter.form.profile }}</div>
       </div>
       <div class="item-details-box">
         <div>Numer rysunku:</div>
-        <div>{{ nozzle_filter.form.drawing_number }}</div>
+        <div id="drawing_input">{{ nozzle_filter.form.drawing_number }}</div>
       </div>
       <div class="item-details-box">
         <div>Wysokość:</div>
-        <div>{{ nozzle_filter.form.profile_height }}</div>
+        <div id="profile_height_input">{{ nozzle_filter.form.profile_height }}</div>
       </div>
       <div class="item-details-box">
         <div>Pierścień wewnętrzny:</div>
-        <div>{{ nozzle_filter.form.inner_ring_type }}</div>
+        <div id="inner_ring_type_input">{{ nozzle_filter.form.inner_ring_type }}</div>
       </div>
       <div class="item-details-box">
         <div>Grubość pierścienia kawitacyjnego:</div>
-        <div>{{ nozzle_filter.form.inner_ring_thickness_propeller_zone }}</div>
+        <div id="inner_ring_thickness_propeller_zone_input">{{ nozzle_filter.form.inner_ring_thickness_propeller_zone }}</div>
       </div>
       <div class="item-details-box">
         <div>Grubość wlotu:</div>
-        <div>{{ nozzle_filter.form.inner_ring_thickness_inlet_zone }}</div>
+        <div id="inner_ring_thicknes_inlet_zone_input">{{ nozzle_filter.form.inner_ring_thickness_inlet_zone }}</div>
       </div>
       <div class="item-details-box">
         <div>Grubość wylotu:</div>
-        <div>{{ nozzle_filter.form.inner_ring_thickness_outlet_zone }}</div>
+        <div id="inner_ring_thickness_outlet_zone_input">{{ nozzle_filter.form.inner_ring_thickness_outlet_zone }}</div>
       </div>
       <div class="item-details-box">
         <div>Grubość żeber:</div>
-        <div>{{ nozzle_filter.form.ribs_thickness }}</div>
+        <div id="ribs_thickness_input">{{ nozzle_filter.form.ribs_thickness }}</div>
       </div>
       <div class="item-details-box">
         <div>Ilość żeber:</div>
-        <div>{{ nozzle_filter.form.ribs_quantity }}</div>
+        <div id="ribs_quantity_input">{{ nozzle_filter.form.ribs_quantity }}</div>
       </div>
       <div class="item-details-box">
         <div>Grubość półek:</div>
-        <div>{{ nozzle_filter.form.segments_thickness }}</div>
+        <div id="segments_thickness_input">{{ nozzle_filter.form.segments_thickness }}</div>
       </div>
       <div class="item-details-box">
         <div>Ilość półek:</div>
-        <div>{{ nozzle_filter.form.segments_quantity }}</div>
+        <div id="segments_quantity_input">{{ nozzle_filter.form.segments_quantity }}</div>
       </div>
       <div class="item-details-box">
         <div>Dysza ze skrzynią?</div>
-        <div>{{ nozzle_filter.form.has_headbox }}</div>
+        <div id="has_headbox_input">{{ nozzle_filter.form.has_headbox }}</div>
       </div>
       <div class="item-details-box">
         <div>Dysza z pierścieniem wylotowym?</div>
-        <div>{{ nozzle_filter.form.has_outlet_ring }}</div>
+        <div id="has_outlet_ring_input">{{ nozzle_filter.form.has_outlet_ring }}</div>
       </div>
       <div class="item-details-box">
         <div>
-          <form method="get">
+          <form method="get" id="nozzle_form">
             <button class="edit-btn" type="submit">Szukaj</button>
           </form>
         </div>
-        <div>Button</div>
+        <button class="action-btn" onclick="resetForm()">Resetuj</button>
       </div>
     </div>
   </div>
 </div>
 
 
+{% if nozzles %}
 {% for nozzle in nozzles %}
   {{ nozzle.diameter }}
 <a href="{% url 'calculator:nozzle_details' nozzle.id %}">Otwórz</a>
 {% endfor %}
+{% endif %}
 
 
 {% endblock content %}

@@ -18,6 +18,8 @@ def nozzles_view(request):
     nozzle_filter = NozzleFilter(request.GET,
                                  queryset=nozzles)
     nozzles = nozzle_filter.qs
+    nozzles_count = nozzles.count()
+    print(nozzles_count)
 
     context = {'nozzles': nozzles,
                'nozzle_filter': nozzle_filter,
