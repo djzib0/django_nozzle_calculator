@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="content-main">
-  <div class="item-box single-column">
+  <div class="item-box">
     <div class="item-header-box">
       <p>Dysza {{ nozzle.diameter }}
        profil {{ nozzle.profile }}
@@ -12,39 +12,32 @@
       {{ nozzle.theoretical_weight }}kg</p>
     </div>
     <div class="item-details">
-      <div class="item-details-box" style="justify-content: center">
+      <div class="button-box">
         <a href="{% url 'calculator:add_nozzle_order' nozzle.id %}"><button class="add-btn">Dodaj nowe zamówienie</button></a>
       </div>
-      <div class="item-details-box" style="justify-content: center">
+      <div class="item-details-table">
         <table>
           <tr>
-            <th><p class="item-detail-name">Numer zlecenia DMCG</p></th>
-            <th><p class="item-detail-name">Numer zlecenia klienta</p></th>
-            <th><p class="item-detail-name">Data dodania</p></th>
+            <th>Numer zlecenia DMCG</th>
+            <th>Numer zlecenia klienta</th>
+            <th>Data dodania</th>
             <th></th>
           </tr>
           {% for order in orders %}
           <tr>
-            <td><p class="item-detail-value">{{ order.order_dmcg_number }}</p></td>
-            <td><p class="item-detail-value">{{ order.order_client_number }}</p></td>
-            <td>
-              {% load i18n %}
+            <td>{{ order.order_dmcg_number }}</td>
+            <td>{{ order.order_client_number }}</td>
+            {% load i18n %}
             {% language 'pl' %}
-            <p class="item-detail-value">{{ order.date_created|date:"d M Y" }}</p>
+            <td>{{ order.date_created|date:"d M Y" }}</td>
             {% endlanguage %}
-            </td>
-            <td><button class="action-btn">Edytuj</button></td>
-            {% empty %}
-          <td colspan="3" style="color: red;"><p>Brak powiązanych zamówień</p></td>
+            <td><button class="show-btn">Edytuj</button></td>
           </tr>
-
-
           {% endfor %}
-
         </table>
       </div>
-
     </div>
   </div>
 </div>
+
 {% endblock content %}

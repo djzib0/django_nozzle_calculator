@@ -13,23 +13,23 @@
       {{ nozzle.ribs_quantity}} x {{ nozzle.ribs_thickness}}mm - żebra,
       {{ nozzle.theoretical_weight }}kg</p>
     </div>
-    <div class="item-details">
-      <div class="item-details-box" style="justify-content: center">
-        <div class="item-detail-name">
+    <div>
+      <div class>
           {% if message %}
             <p class="alert-paragraph">Takie zlecenie jest już powiązane!</p>
           {% endif %}
         <form action="{% url 'calculator:add_nozzle_order' nozzle.id %}" method="post">
-        {% csrf_token %}
-          <p style="width: 100%;">Numer zlecenia DMCG</p>
+          {% csrf_token %}
+          <p>Numer zlecenia DMCG</p>
           <p>{{ form.order_dmcg_number }}</p>
           <p>Numer zlecenia klienta</p>
           <p>{{ form.order_client_number }}</p>
           <button name="submit" class="confirm-btn">Dodaj</button>
+          <a href="{% url 'calculator:nozzle_orders' nozzle.id %}"><button class="cancel-btn" type="button">Anuluj</button></a>
         </form>
-        <a href="{% url 'calculator:nozzle_orders' nozzle.id%}"><button class="cancel-btn">Anuluj</button></a>
       </div>
     </div>
   </div>
+</div>
 
 {% endblock content %}

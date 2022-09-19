@@ -8,7 +8,7 @@
     display: flex;
     color: white;
     font-weight: bold;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-content: center;
 }
 
@@ -16,10 +16,13 @@
     background-color: #03045E;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width:10em;
+    cursor: pointer;
 }
 
 #navbar-item-container:hover {
-    background-color: lightblue;
+    background-color: #0077b6;
     text-decoration: none;
     color: blue;
 }
