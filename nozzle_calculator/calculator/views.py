@@ -60,6 +60,21 @@ def nozzle_orders_view(request, nozzle_id):
 
     return render(request, template, context)
 
+
+def add_nozzle(request):
+    if request.method != 'POST':
+        form = NozzleForm()
+    else:
+        form = NozzleForm(request.POST)
+        if form.is_valid():
+            new_nozzle = form.save()
+            return redirect('calculator:nozzle_details', new_nozzle.id)
+
+    context = {'form': form}
+    template = 'calculator/add_nozzle.html'
+
+    return render(request, template, context)
+
 def add_nozzle_order(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     existing_orders_count = 0

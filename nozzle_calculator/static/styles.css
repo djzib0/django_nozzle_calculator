@@ -35,14 +35,14 @@ th, td {
 /* layout */
 .content-main {
     display: flex;
-    margin: 0 2em;
-    width: 900px;
-    justify-content: space-between;
+    /*margin: 0 2em;*/
+    width: 1200px;
+    justify-content: space-around;
     margin: 0 auto;
 }
 
 .item-box {
-    min-width: 400px;
+    min-width: 500px;
     max-width: 90%;
     display: flex;
     flex-direction: column;

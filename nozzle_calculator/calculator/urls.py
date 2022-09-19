@@ -9,6 +9,7 @@ urlpatterns = [
     path('nozzle/<int:nozzle_id>/', nozzle_details_view, name='nozzle_details'),
     path('nozzle/<int:nozzle_id>/orders', nozzle_orders_view, name='nozzle_orders'),
     path('nozzle/<int:nozzle_id>/add_order', add_nozzle_order, name='add_nozzle_order'),
+    path('nozzle/add_nozzle/', add_nozzle, name='add_nozzle'),
 
     path('orders/', orders_view, name='orders_view',)
 ]

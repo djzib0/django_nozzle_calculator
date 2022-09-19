@@ -74,31 +74,34 @@
         <button class="action-btn" onclick="resetForm()">Resetuj</button>
       </div>
     </div>
+    </form>
   </div>
-  <div class="content-main">
-    <div class="item-box">
-      <div class="item-header-box">Wyniki</div>
-      <div class="item-details">
-        {% if nozzles_count == 0 %}
-        <div class="item-details-box">Wybierz kryteria wyszukiwania aby wyświetlić wyniki</div>
-        {% endif %}
-        {% for nozzle in nozzles %}
-        <div class="item-details-box">
-          <p class="description">Dysza {{ nozzle.diameter }}
-           profil {{ nozzle.profile }} H={{ nozzle.profile_height }}mm {{ type_name }},
-            {{ nozzle.segments_quantity}} x {{ nozzle.segments_thickness}}mm - półki,
-            {{ nozzle.ribs_quantity}} x {{ nozzle.ribs_thickness}}mm - żebra,
-            {{ nozzle.theoretical_weight }}kg</p>
-          <a href="{% url 'calculator:nozzle_details' nozzle.id %}">
-            <button type="button" class="show-btn">Pokaż</button>
-          </a>
-        </div>
-        {% endfor %}
+
+  <div class="item-box">
+    <div class="item-header-box">Wyniki</div>
+    <div class="item-details">
+      <div class="button-box">
+        <a href="{% url 'calculator:add_nozzle' %}">
+          <button class="add-btn" type="button">Dodaj nową dyszę</button>
+        </a>
       </div>
+      {% if nozzles_count == 0 %}
+      <div class="item-details-box">Wybierz kryteria wyszukiwania aby wyświetlić wyniki</div>
+      {% endif %}
+      {% for nozzle in nozzles %}
+      <div class="item-details-box">
+        <p class="description">Dysza {{ nozzle.diameter }}
+         profil {{ nozzle.profile }} H={{ nozzle.profile_height }}mm {{ type_name }},
+          {{ nozzle.segments_quantity}} x {{ nozzle.segments_thickness}}mm - półki,
+          {{ nozzle.ribs_quantity}} x {{ nozzle.ribs_thickness}}mm - żebra,
+          {{ nozzle.theoretical_weight }}kg</p>
+        <a href="{% url 'calculator:nozzle_details' nozzle.id %}">
+          <button type="button" class="show-btn">Pokaż</button>
+        </a>
+      </div>
+      {% endfor %}
     </div>
   </div>
 
-
-
-
+</div>
 {% endblock content %}
