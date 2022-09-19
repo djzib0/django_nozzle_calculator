@@ -11,9 +11,10 @@
 
     <div class="item-details">
       <div class="button-box">
-        <form>
-        <input type="button" class="action-btn" value="Wróć" onclick="history.back()"
-        </form>
+<!--        <form>-->
+<!--        <input type="button" class="action-btn" value="Wróć" onclick="history.back()"-->
+<!--        </form>-->
+        <a href="{% url 'calculator:nozzles' %}"><button class="action-btn">Wróć</button></a>
         <button class="edit-btn">Edytuj</button>
       </div>
       <div class="item-details-box">
