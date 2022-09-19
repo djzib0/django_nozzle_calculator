@@ -90,8 +90,9 @@ def add_nozzle_order(request, nozzle_id):
                 new_order.save()
                 return redirect('calculator:nozzle_orders', nozzle.id)
             else:
-
+                message = 'Takie zlecenie jest już istnieje!'
                 context = {'form': form,
+                           'message': message,
                            'nozzle_id': nozzle.id,
                            'nozzle': nozzle,
                            }

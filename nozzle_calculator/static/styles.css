@@ -6,11 +6,25 @@ body {
     background-color: #00b4d8;
 }
 
+table {
+    width: 480px;
+}
+
 table, th, td {
     /*border: 1px solid;*/
     border-collapse: collapse;
     text-align: left;
     border-bottom: 1px solid white;
+}
+
+thead {
+    background-color: #0077b6;
+    color: white;
+    font-weight: 300;
+}
+
+thead th {
+    width: 100px;
 }
 
 
@@ -36,7 +50,7 @@ th, td {
 
 /* text style */
 .alert-paragraph {
-    font-size: 0.875em;
+    font-size: 1.125em;
     background-color: palevioletred;
     color: darkred;
     border: 1px dotted darkred;
@@ -55,10 +69,15 @@ th, td {
     display: flex;
     background-color: #00b4d8;
     /*margin: 0 2em;*/
-    width: 1200px;
     justify-content: space-around;
     align-items: flex-start; /* thank to it each child have it's own height */
     margin: 0 auto;
+}
+
+@media (max-width: 1000px) {
+    .content-main {
+        flex-direction: column;
+    }
 }
 
 .item-box {
@@ -110,6 +129,13 @@ th, td {
 .item-details-table {
     padding: 0.25em 0;
     margin-top: 1em;
+}
+
+.item-details-form {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+    width: 300px;
 }
 
 /* items styles */

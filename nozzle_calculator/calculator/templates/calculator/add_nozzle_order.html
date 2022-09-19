@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="content-main">
-  <div class="item-box single-column">
+  <div class="item-box">
     <div class="item-header-box">
       <p>Dysza {{ nozzle.diameter }}
        profil {{ nozzle.profile }}
@@ -14,19 +14,26 @@
       {{ nozzle.theoretical_weight }}kg</p>
     </div>
     <div>
-      <div>
+      <div class="item-details-form">
           {% if message %}
-            <p class="alert-paragraph">Takie zlecenie jest już powiązane!</p>
+          <div>
+            <p class="alert-paragraph">{{ message }}</p>
+          </div>
           {% endif %}
-        <form action="{% url 'calculator:add_nozzle_order' nozzle.id %}" method="post">
-          {% csrf_token %}
-          <p>Numer zlecenia DMCG</p>
-          <p>{{ form.order_dmcg_number }}</p>
-          <p>Numer zlecenia klienta</p>
-          <p>{{ form.order_client_number }}</p>
-          <button name="submit" class="confirm-btn">Dodaj</button>
-          <a href="{% url 'calculator:nozzle_orders' nozzle.id %}"><button class="cancel-btn" type="button">Anuluj</button></a>
-        </form>
+          <div>
+            <form action="{% url 'calculator:add_nozzle_order' nozzle.id %}" method="post">
+            {% csrf_token %}
+              <p>Numer zlecenia DMCG</p>
+              <p>{{ form.order_dmcg_number }}</p>
+              <p>Numer zlecenia klienta</p>
+              <p>{{ form.order_client_number }}</p>
+              <div class="button-box">
+                <button name="submit" class="confirm-btn">Dodaj</button>
+                <a href="{% url 'calculator:nozzle_orders' nozzle.id %}"><button class="cancel-btn" type="button">Anuluj</button></a>
+              </div>
+            </form>
+          </div>
+
       </div>
     </div>
   </div>

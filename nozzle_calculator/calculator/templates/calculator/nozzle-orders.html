@@ -17,12 +17,14 @@
       </div>
       <div class="item-details-table">
         <table>
-          <tr>
-            <th>Numer zlecenia DMCG</th>
-            <th>Numer zlecenia klienta</th>
-            <th>Data dodania</th>
-            <th></th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Nr zlecenia DMCG</th>
+              <th>Nr zlecenia klienta</th>
+              <th>Data dodania</th>
+              <th></th>
+            </tr>
+          </thead>
           {% for order in orders %}
           <tr>
             <td>{{ order.order_dmcg_number }}</td>
