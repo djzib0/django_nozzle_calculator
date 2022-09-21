@@ -1,3 +1,32 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #03045E;
+    overflow: hidden;
+}
+
+li {
+    display: inline;
+    float: left;
+}
+
+.navbar-lnk {
+    display: block;
+    padding: 0.5em;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    padding: 1em 1em;
+    width: 4em;
+}
+
+.navbar-lnk:hover {
+    background-color: #0077b6;
+}
+
 #navbar {
     width: 100%;
     height: 50px;

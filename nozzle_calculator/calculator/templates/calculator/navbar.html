@@ -1,20 +1,7 @@
 
 <navbar>
-  <div id="navbar">
-      <div id="navbar-item-container">
-        <p>
-         <a id="navbar-link" href="{% url 'calculator:nozzles' %}">DYSZE</a>
-        </p>
-      </div>
-      <div id="navbar-item-container">
-        <p>
-         <a id="navbar-link" href="{% url 'calculator:nozzles' %}">KALKULACJE</a>
-        </p>
-      </div>
-      <div id="navbar-item-container">
-        <p>
-         <a id="navbar-link" href="{% url 'calculator:orders_view' %}">ZLECENIA</a>
-        </p>
-      </div>
-  </div>
+  <ul>
+    <li><a class='navbar-lnk' href="{% url 'calculator:nozzles' %}">DYSZE</a></li>
+    <li><a class="navbar-lnk" href="{% url 'calculator:orders_view' %}">ZLECENIA</a></li>
+  </ul>
 </navbar>
