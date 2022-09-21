@@ -18,7 +18,7 @@ class NozzleFilter(django_filters.FilterSet):
                       ('False', 'Nie')
                       )
 
-    # diameter = django_filters.CharFilter(widget=forms.TextInput(attrs={"class":"wide_form"}))
+    diameter = django_filters.CharFilter(lookup_expr='icontains')
     profile = django_filters.ChoiceFilter(label="test label",
                                           choices=PROFILES,
                                           widget=forms.Select(attrs={"class": "wide_form"}))

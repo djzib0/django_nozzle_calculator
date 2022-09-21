@@ -68,6 +68,7 @@ def add_nozzle(request):
         form = NozzleForm(request.POST)
         if form.is_valid():
             new_nozzle = form.save()
+            print(new_nozzle.id)
             return redirect('calculator:nozzle_details', new_nozzle.id)
 
     context = {'form': form}
@@ -90,7 +91,7 @@ def add_nozzle_order(request, nozzle_id):
                 new_order.save()
                 return redirect('calculator:nozzle_orders', nozzle.id)
             else:
-                message = 'Takie zlecenie jest już istnieje!'
+                message = 'Takie zlecenie już istnieje!'
                 context = {'form': form,
                            'message': message,
                            'nozzle_id': nozzle.id,

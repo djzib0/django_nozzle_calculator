@@ -13,6 +13,7 @@
     </div>
     <div class="item-details">
       <div class="button-box">
+        <a href="{% url 'calculator:nozzle_details' nozzle.id %}"><button class="cancel-btn">Wróć</button></a>
         <a href="{% url 'calculator:add_nozzle_order' nozzle.id %}"><button class="add-btn">Dodaj nowe zamówienie</button></a>
       </div>
       <div class="item-details-table">

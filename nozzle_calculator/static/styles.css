@@ -15,6 +15,7 @@ table, th, td {
     border-collapse: collapse;
     text-align: left;
     border-bottom: 1px solid white;
+    margin-left: 0.5em;
 }
 
 thead {
@@ -67,11 +68,12 @@ th, td {
 /* layout */
 .content-main {
     display: flex;
+    flex-direction: row;
     background-color: #00b4d8;
-    /*margin: 0 2em;*/
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start; /* thank to it each child have it's own height */
     margin: 0 auto;
+    padding: 0 auto;
 }
 
 @media (max-width: 1000px) {
@@ -80,14 +82,15 @@ th, td {
     }
 }
 
+
 .item-box {
-    min-width: 500px;
-    max-width: 90%;
+    min-width: 550px;
     display: flex;
     flex-direction: column;
     background-color:  #CAF0F8;
     border-radius: 0.5em;
     margin: 1em auto;
+    padding: 0px;
 }
 
 .single-column {
@@ -111,11 +114,13 @@ th, td {
 
 .item-details {
     padding-left: 1em;
+    padding-top: 0.5em;
     border-left: 1px solid #0077b6;
     border-right: 1px solid #0077b6;
     border-bottom: 1px solid #0077b6;
     border-bottom-left-radius: 0.5em;
     border-bottom-right-radius: 0.5em;
+
 }
 
 .item-details-box {
@@ -211,7 +216,7 @@ th, td {
     border-radius: 0.5em;
     height: 2rem;
     padding: 0.5rem 1rem;
-    margin-top: 0.5em;
+    margin: 0.5em 0.5em;
     cursor: pointer;
 }
 
@@ -222,7 +227,7 @@ th, td {
 .cancel-btn {
     background-color: firebrick;
     border: 1px solid firebrick;
-    width: 90%;
+    /*width: 90%;*/
     margin-left: 0.125em;
 }
 

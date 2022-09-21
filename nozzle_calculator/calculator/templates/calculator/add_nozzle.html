@@ -1,24 +1,36 @@
 {% extends 'calculator/base.html' %}
 
 {% block content %}
-  <table>
-    <th>Label</th>
-    <th>Value</th>
-    <tr>
-      <td>
-        <form method="post" action="{% url 'calculator:add_nozzle' %}">
-  {% csrf_token %}
 
-  {{ form.as_table }}
-      </td>
-    </tr>
-    <tr>
-      <td>  <button type="submit">Zapisz</button>
-  <a href="{% url 'calculator:nozzles' %}"><button type="button">Anuluj</button></a>
-</form></td>
-    </tr>
-  </table>
+<div class="content-main">
+  <div class="item-box">
+    <div class="item-header-box">
+      Uzupełnij dane
+    </div>
+    <div class="item-details-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Informacja</th>
+            <th>Wartość</th>
+          </tr>
+        </thead>
+        <tr>
+          <form method="post" action="{% url 'calculator:add_nozzle' %}">
+            {% csrf_token %}
+            {{ form.as_table }}
+          <td>
+            <div class="button-box">
+            <button type="submit">Zapisz</button>
+            <a href="{% url 'calculator:nozzles' %}"><button type="button">Anuluj</button></a>
+          </form>
+          </div>
+          </td>
 
-
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
