@@ -15,7 +15,7 @@
 <!--        <input type="button" class="action-btn" value="Wróć" onclick="history.back()"-->
 <!--        </form>-->
         <a href="{% url 'calculator:nozzles' %}"><button class="cancel-btn">Wróć</button></a>
-        <button class="add-btn">Edytuj</button>
+        <a href="{% url 'calculator:edit_nozzle' nozzle.id %}"><button class="add-btn">Edytuj</button></a>
       </div>
       <div class="item-details-box">
         <p class="item-detail-name">Nr rysunku:</p>

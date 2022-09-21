@@ -76,6 +76,23 @@ def add_nozzle(request):
 
     return render(request, template, context)
 
+
+def edit_nozzle(request, nozzle_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    if request.method != 'POST':
+        form = NozzleForm(instance=nozzle)
+    else:
+        form = NozzleForm(instance=nozzle, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('calculator:nozzle_details', nozzle.id)
+
+    context = {'form': form,
+               'nozzle': nozzle}
+    template = 'calculator/edit_nozzle.html'
+
+    return render(request, template, context)
+
 def add_nozzle_order(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     existing_orders_count = 0
