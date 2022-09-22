@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Count, Sum
 from .models import Nozzle, Order
 from .forms import NozzleForm, OrderForm
 from .filters import NozzleFilter, OrderFilter
@@ -14,15 +15,14 @@ def index_view(request):
 
 
 def nozzles_view(request):
-    nozzles = Nozzle.objects.all()
+    nozzles = Nozzle.objects.all().annotate(order_count=Count('order'))
     nozzle_filter = NozzleFilter(request.GET,
                                  queryset=nozzles)
     nozzles = nozzle_filter.qs
-    nozzles_count = nozzles.count()
 
     context = {'nozzles': nozzles,
                'nozzle_filter': nozzle_filter,
-               'nozzles_count': nozzles_count,
+               # 'nozzle_orders_count': nozzle_orders_count,
                }
     template = 'calculator/nozzles.html'
 
