@@ -20,7 +20,7 @@ table, th, td {
 }
 
 td:nth-child(2n+1) {
-    background-color: #dee2e6;
+    background-color: #90e0ef;
 }
 
 thead {
@@ -33,6 +33,22 @@ thead th {
     width: 100px;
 }
 
+.table_form {
+    /*border: 1px solid;*/
+    border-collapse: collapse;
+    text-align: left;
+    margin-left: 0.5em;
+    margin-bottom: 2em;
+    border: none;
+}
+
+.th_form {
+
+}
+
+.td_form {
+    border: none;
+}
 
 input:focus, select:focus {
     background-color: #e9ecef;
@@ -89,7 +105,8 @@ th, td {
 
 
 .item-box {
-    min-width: 550px;
+    min-width: 350px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     background-color:  #CAF0F8;
@@ -99,7 +116,15 @@ th, td {
 }
 
 .single-column {
-    min-width: 600px;
+    min-width: 550px;
+}
+
+.narrow-box {
+    width: 450px;
+}
+
+.wide-box {
+    width: 750px;
 }
 
 .item-header-box {

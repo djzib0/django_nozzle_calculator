@@ -3,34 +3,89 @@
 {% block content %}
 
 <div class="content-main">
-  <div class="item-box">
+  <div class="item-box narrow-box">
     <div class="item-header-box">
       Uzupełnij dane
     </div>
-    <div class="item-details-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Informacja</th>
-            <th>Wartość</th>
-          </tr>
-        </thead>
-        <tr>
-          <form method="post" action="{% url 'calculator:add_nozzle' %}">
-            {% csrf_token %}
-            {{ form.as_table }}
-          <td>
-            <div class="button-box">
-            <button type="submit">Zapisz</button>
-            <a href="{% url 'calculator:nozzles' %}"><button type="button">Anuluj</button></a>
+    <form method="post" action="{% url 'calculator:add_nozzle' %}">
+    {% csrf_token %}
+    <div class="item-details">
+      <div class="item-details-box">
+        <div>Średnica:</div>
+        <div id="diameter_input">{{ form.diameter }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Profil:</div>
+        <div id="profile_input">{{ form.profile }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Numer rysunku:</div>
+        <div id="drawing_input">{{ form.drawing_number }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Wysokość:</div>
+        <div id="profile_height_input">{{ form.profile_height }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Pierścień wewnętrzny:</div>
+        <div id="inner_ring_type_input">{{ form.inner_ring_type }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość pierścienia kawitacyjnego:</div>
+        <div id="inner_ring_thickness_propeller_zone_input">{{ form.inner_ring_thickness_propeller_zone }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość wlotu:</div>
+        <div id="inner_ring_thicknes_inlet_zone_input">{{ form.inner_ring_thickness_inlet_zone }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość wylotu:</div>
+        <div id="inner_ring_thickness_outlet_zone_input">{{ form.inner_ring_thickness_outlet_zone }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość żeber:</div>
+        <div id="ribs_thickness_input">{{ form.ribs_thickness }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Ilość żeber:</div>
+        <div id="ribs_quantity_input">{{ form.ribs_quantity }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Grubość półek:</div>
+        <div id="segments_thickness_input">{{ form.segments_thickness }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Ilość półek:</div>
+        <div id="segments_quantity_input">{{ form.segments_quantity }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Dysza ze skrzynią?</div>
+        <div id="has_headbox_input">{{ form.has_headbox }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Dysza z pierścieniem wylotowym?</div>
+        <div id="has_outlet_ring_input">{{ form.has_outlet_ring }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Ciężar wg zapytania ofertowego</div>
+        <div id="has_outlet_ring_input">{{ form.theoretical_weight }}</div>
+      </div>
+      <div class="item-details-box">
+        <div>Ciężar rzeczywisty</div>
+        <div id="has_outlet_ring_input">{{ form.real_weight }}</div>
+      </div>
+      <div class="button-box">
+        <div>
+          <form method="get" id="nozzle_form">
+            <button class="add-btn" type="submit">Dodaj</button>
           </form>
-          </div>
-          </td>
-
-        </tr>
-      </table>
+        </div>
+        <a href="{% url 'calculator:nozzles' %}"><button class="cancel-btn" type="button">Anuluj</button></a>
+      </div>
     </div>
+    </form>
   </div>
 </div>
+
 
 {% endblock content %}
