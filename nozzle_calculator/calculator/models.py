@@ -9,6 +9,7 @@ class Nozzle(models.Model):
                 ('19A', '19A'),
                 )
 
+
     INNER_RING_TYPES = (('Complete st. st. inside', 'Wnętrze nierdzewne'),
                         ('St. st. ring inside', 'Pierścień kawitacyjny nierdzewny'),
                         ('Complete steel', 'Wnętrze ze stali zwykłej'),

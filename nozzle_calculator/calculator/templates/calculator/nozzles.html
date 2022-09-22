@@ -77,7 +77,7 @@
     </form>
   </div>
 
-  <div class="item-box" style="width: 750px;">
+  <div class="item-box" style="width: 800px;">
     <div class="item-header-box">WYNIKI</div>
     <div class="item-details">
       <div class="button-box">
@@ -88,18 +88,51 @@
       {% if nozzles_count == 0 %}
       <div class="item-details-box">Wybierz kryteria wyszukiwania aby wyświetlić wyniki</div>
       {% endif %}
-      {% for nozzle in nozzles %}
-      <div class="item-details-box">
-        <p class="description">Dysza {{ nozzle.diameter }}
-         profil {{ nozzle.profile }} H={{ nozzle.profile_height }}mm {{ type_name }},
-          {{ nozzle.segments_quantity}} x {{ nozzle.segments_thickness}}mm - półki,
-          {{ nozzle.ribs_quantity}} x {{ nozzle.ribs_thickness}}mm - żebra,
-          {{ nozzle.theoretical_weight }}kg - ilość zleceń {{ nozzle.order_count }}</p>
-        <a href="{% url 'calculator:nozzle_details' nozzle.id %}">
-          <button type="button" class="show-btn">Pokaż</button>
-        </a>
+      <div>
+        <table style="width: 750px">
+          <thead>
+            <tr>
+              <th>Średnica</th>
+              <th>Profil</th>
+              <th>Wysokość</th>
+              <th>Typ</th>
+              <th>Grubość/ilość żeber</th>
+              <th>Grubość/ilość półek</th>
+              <th>Skrzynka</th>
+              <th>Pierścień wylotowy</th>
+              <th>Ciężar wg oferty</th>
+              <th>Ciężar rzeczywisty</th>
+              <th>Ilość zleceń</th>
+              <th></th>
+            </tr>
+          </thead>
+          {% for nozzle in nozzles %}
+            <tr>
+              <td>{{ nozzle.diameter }}</td>
+              <td>{{ nozzle.profile }}</td>
+              <td>{{ nozzle.profile_height }}</td>
+              <td>{{ nozzle.get_inner_ring_type_display|lower }}</td>
+              <td>{{ nozzle.ribs_quantity }}szt. x {{ nozzle.ribs_thickness }}mm</td>
+              <td>{{ nozzle.segments_quantity }}szt. x {{ nozzle.segments_thickness }}mm</td>
+              {% if nozzle.has_headbox == True %}
+              <td>Tak</td>
+              {% else %}
+              <td>Nie</td>
+              {% endif %}
+              {% if nozzle.has_outlet_ring == True %}
+              <td>Tak</td>
+              {% else %}
+              <td>Nie</td>
+              {% endif %}
+              <td>{{ nozzle.theoretical_weight }}kg</td>
+              <td>{{ nozzle.real_weight }}kg</td>
+              <td>{{ nozzle.order_count }}</td>
+              <td><a href="{% url 'calculator:nozzle_details' nozzle.id %}"><button type="button" class="show-btn">Pokaż</button></a></td>
+            </tr>
+          {% endfor %}
+        </table>
       </div>
-      {% endfor %}
+
     </div>
   </div>
 </div>
