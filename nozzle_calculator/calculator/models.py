@@ -9,10 +9,10 @@ class Nozzle(models.Model):
                 ('19A', '19A'),
                 )
 
-    INNER_RING_TYPES = (('Complete st. st. inside', 'Complete st. st. inside'),
-                        ('St. st. ring inside', 'St. st. ring inside'),
-                        ('Complete steel', 'Complete steel'),
-                        ('St. st. ring and outlet', 'St. st. ring and outlet'))
+    INNER_RING_TYPES = (('Complete st. st. inside', 'Wnętrze nierdzewne'),
+                        ('St. st. ring inside', 'Pierścień kawitacyjny nierdzewny'),
+                        ('Complete steel', 'Wnętrze ze stali zwykłej'),
+                        ('St. st. ring and outlet', 'Pierścień kawitacyjny i wylot ze stali nierdzewnej'))
 
     date_created = models.DateTimeField(auto_now_add=True)
     diameter = models.PositiveIntegerField(null=False, blank=False)

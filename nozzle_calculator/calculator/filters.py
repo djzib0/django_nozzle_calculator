@@ -44,10 +44,17 @@ class NozzleFilter(django_filters.FilterSet):
 
 
 class OrderFilter(django_filters.FilterSet):
-    order_dmcg_number = django_filters.CharFilter(lookup_expr='icontains')
-    order_client_number = django_filters.CharFilter(lookup_expr='icontains')
+    order_dmcg_number = django_filters.CharFilter(lookup_expr='icontains', label='Numer zlecenia DMCG')
+    order_client_number = django_filters.CharFilter(lookup_expr='icontains', label='Numer zlecenia klienta')
 
     class Meta:
         model = Order
         fields = '__all__'
         exclude = ['date_created', 'nozzle']
+
+    # below code to not show any results after loading page.
+    # it will show result of filtering after pressing search button.
+    def __init__(self, *args, **kwargs):
+        super(OrderFilter, self).__init__(*args, **kwargs)
+        if self.data == {}:
+            self.queryset = self.queryset.none()

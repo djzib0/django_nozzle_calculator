@@ -1,15 +1,49 @@
 {% extends 'calculator/base.html' %}
 
 {% block content %}
-
-<form method="get">
-  {{ orders_filter.form }}
-  <button type="submit">Szukaj</button>
-</form>
-
-{% for order in orders %}
- {{ order }}
-{% endfor %}
-
+<div class="content-main">
+  <div class="item-box">
+    <div class="item-header-box">
+      <p>Szukaj zlecenia</p>
+    </div>
+    <div class="item-details">
+      <div>
+        <form method="get">
+          {{ orders_filter.form }}
+          <button class="add-btn" type="submit">Szukaj</button>
+        </form>
+      </div>
+      <div class="item-details-table">
+        <table style="width: 660px">
+          <thead>
+            <tr>
+              <th>Nr zlecenia DMCG</th>
+              <th>Nr zlecenia klienta</th>
+              <th style="width: 10em;">Data dodania zlecenia</th>
+              <th style="width: 18em;">Szczegóły</th>
+              <th style="width: 5em;"></th>
+            </tr>
+          </thead>
+          {% for order in orders %}
+          <tr>
+            <td>{{ order.order_dmcg_number }}</td>
+            <td>{{ order.order_client_number }}</td>
+            {% load i18n %}
+            {% language 'pl' %}
+            <td>{{ order.date_created|date:"d M Y" }}</td>
+            {% endlanguage %}
+            <td>Dysza {{ order.nozzle.diameter }}
+              {{ order.nozzle.profile }} H={{ order.nozzle.profile_height }}
+              {{ order.nozzle.get_inner_ring_type_display|lower }},
+              {{ order.nozzle.segments_quantity}} x {{ order.nozzle.segments_thickness}}mm - półki,
+              {{ order.nozzle.ribs_quantity}} x {{ order.nozzle.ribs_thickness}}mm - żebra,
+              {{ order.nozzle.theoretical_weight }}kg</td>
+            <td><a href="{% url 'calculator:nozzle_details' order.nozzle.id %}"><button class="show-btn">Pokaż</button></a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
 
 {% endblock content %}
