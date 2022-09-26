@@ -1,6 +1,11 @@
 from django import forms
 
-from .models import Nozzle, Order
+from .models import Nozzle, Order, Offer
+
+from datetime import datetime
+
+from .functions import possible_year
+
 
 class NozzleForm(forms.ModelForm):
     PROFILES = (('Optima', 'Optima'),
@@ -61,6 +66,25 @@ class OrderForm(forms.ModelForm):
                 'placeholder': 'Numer DMCG'
             })
         }
+
+
+class OfferForm(forms.ModelForm):
+    now = datetime.now().year
+    first_year = 2012
+    POSSIBLE_YEAR = possible_year(first_year, now)
+
+    offer_year = forms.ChoiceField(
+        choices=POSSIBLE_YEAR,
+        label='rok testowy')
+
+    class Meta:
+        model = Offer
+        fields = {'dmcg_offer_number', 'client_inquiry_number',
+                  'offer_year'}
+        # labels = {'dmcg_offer_number': 'Numer oferty DMCG',
+        #           'client_inquiry_number': 'Numer zapytania ofertowego klienta'}
+        exclude = ['date_created']
+
 
 
 

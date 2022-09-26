@@ -1,0 +1,52 @@
+{% extends 'calculator/base.html' %}
+
+{% block content %}
+<div class="content-main">
+  <div class="item-box">
+    <div class="item-header-box">
+      <p>Dysza {{ nozzle.diameter }}
+       profil {{ nozzle.profile }}
+      {{ ratio }}D {{ type_name }}
+      {{ nozzle.segments_quantity}} x {{ nozzle.segments_thickness}}mm - półki,
+      {{ nozzle.ribs_quantity}} x {{ nozzle.ribs_thickness}}mm - żebra,
+      {{ nozzle.theoretical_weight }}kg</p>
+    </div>
+    <div class="item-details">
+      <div class="button-box">
+        <a href="{% url 'calculator:nozzle_details' nozzle.id %}"><button class="cancel-btn">Wróć</button></a>
+        <a href="{% url 'calculator:add_nozzle_offer' nozzle.id %}"><button class="add-btn">Dodaj numer oferty</button></a>
+      </div>
+      <div class="item-details-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Nr Oferty</th>
+              <th>Nr oferty klienta</th>
+              <th>Data dodania</th>
+              <th></th>
+            </tr>
+          </thead>
+          {% for offer in offers %}
+          <tr>
+            <td>{{ offer.dmcg_offer_number }}/{{ offer.offer_year }}</td>
+            {% if offer.client_inquiry_number %}
+              <td>{{ offer.client_inquiry_number }}</td>
+              {% else %}
+              <td>-</td>
+            {% endif %}
+
+            {% load i18n %}
+            {% language 'pl' %}
+            <td>{{ offer.date_created|date:"d M Y" }}</td>
+            {% endlanguage %}
+            <td><button class="show-btn">Edytuj</button></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}

@@ -1,5 +1,7 @@
 from django.db import models
 
+import datetime
+
 # Create your models here.
 
 
@@ -36,7 +38,7 @@ class Nozzle(models.Model):
     real_weight = models.PositiveIntegerField(blank=True, default=0)
 
     def __str__(self):
-        return f"Nozzle {self.diameter} type {self.profile} {self.inner_ring_type}"
+        return f"ID: {self.id} - Nozzle {self.diameter} type {self.profile} {self.inner_ring_type}"
 
 
 class Order(models.Model):
@@ -47,3 +49,20 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.order_dmcg_number}/{self.order_client_number}"
+
+
+class Offer(models.Model):
+    this_year = datetime.datetime.now().year
+
+    nozzle = models.ForeignKey(Nozzle, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+    dmcg_offer_number = models.CharField(max_length=4, blank=False, null=False)
+    client_inquiry_number = models.CharField(max_length=32, blank=True, null=True)
+    # offer_client_number = models.CharField(max_length=32, blank=True, null=True)
+    offer_year = models.PositiveIntegerField(default=int(this_year), blank=False, null=False)
+
+    def __str__(self):
+        return f"Offer {self.dmcg_offer_number}/{self.offer_year} - client number {self.client_inquiry_number}"
+
+
+

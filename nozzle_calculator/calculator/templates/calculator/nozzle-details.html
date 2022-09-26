@@ -94,6 +94,13 @@
         </a>
       </div>
       <div class="item-details-box">
+        <p class="item-detail-name">Ilość powiązanych ofert</p>
+        <p class="item-detail-value">{{ nozzle_total_offers }}</p>
+        <a href="{% url 'calculator:nozzle_offers' nozzle.id %}">
+          <button class="show-btn" type="button">Pokaż</button>
+        </a>
+      </div>
+      <div class="item-details-box">
         <p class="item-detail-name">Ilość kalkulacji</p>
         <p class="item-detail-value">test</p>
         <button class="show-btn" type="button">Pokaż</button>

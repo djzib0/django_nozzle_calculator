@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count, Sum
-from .models import Nozzle, Order
-from .forms import NozzleForm, OrderForm
+from .models import Nozzle, Order, Offer
+from .forms import NozzleForm, OrderForm, OfferForm
 from .filters import NozzleFilter, OrderFilter
 
 from .functions import translate_type_name
@@ -34,12 +34,15 @@ def nozzle_details_view(request, nozzle_id):
     ratio = round((nozzle.profile_height / nozzle.diameter), 1)
     type_name = translate_type_name(str(nozzle.inner_ring_type))
     orders = Order.objects.all()
+    offers = Offer.objects.all()
     nozzle_total_orders = orders.filter(nozzle=nozzle).count()
+    nozzle_total_offers = offers.filter(nozzle=nozzle).count()
 
     context = {'nozzle': nozzle,
                'ratio': ratio,
                'type_name': type_name,
                'nozzle_total_orders': nozzle_total_orders,
+               'nozzle_total_offers': nozzle_total_offers,
                'nozzle_id': nozzle_id,
                }
     template = 'calculator/nozzle-details.html'
@@ -57,6 +60,17 @@ def nozzle_orders_view(request, nozzle_id):
                'ratio': ratio,
                }
     template = 'calculator/nozzle-orders.html'
+
+    return render(request, template, context)
+
+
+def nozzle_offers_view(request, nozzle_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    offers = nozzle.offer_set.order_by('dmcg_offer_number')
+
+    context = {'nozzle': nozzle,
+               'offers': offers}
+    template = 'calculator/nozzle-offers.html'
 
     return render(request, template, context)
 
@@ -126,6 +140,42 @@ def add_nozzle_order(request, nozzle_id):
 
     return render(request, template, context)
 
+
+def add_nozzle_offer(request, nozzle_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    existing_offers_count = 0
+    if request.method != 'POST':
+        form = OfferForm()
+    else:
+        form = OfferForm(data=request.POST)
+        if form.is_valid():
+            new_offer = form.save(commit=False)
+            new_offer.nozzle = nozzle
+            existing_offers_count = Offer.objects.filter(
+                dmcg_offer_number=new_offer.dmcg_offer_number,
+                offer_year=new_offer.offer_year).count()
+            if existing_offers_count < 1:
+                new_offer.save()
+                return redirect('calculator:nozzle_offers', nozzle.id)
+            else:
+                message = 'Taki numer oferty już istnieje!'
+                context = {'form': form,
+                           'message': message,
+                           'nozzle_id': nozzle.id,
+                           'nozzle': nozzle,
+                           }
+                template = 'calculator/add_nozzle_offer.html'
+
+                return render(request, template, context)
+
+
+    context = {'form': form,
+               'nozzle_id': nozzle.id,
+               'nozzle': nozzle,
+               }
+    template = 'calculator/add_nozzle_offer.html'
+
+    return render(request, template, context)
 
 def orders_view(request):
     orders = Order.objects.all()
