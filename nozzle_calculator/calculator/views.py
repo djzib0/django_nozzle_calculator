@@ -221,6 +221,48 @@ def add_nozzle_offer(request, nozzle_id):
     return render(request, template, context)
 
 
+def edit_nozzle_offer(request, nozzle_id, offer_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    offer = Offer.objects.get(id=offer_id)
+    existing_dmcg_offer_number = offer.dmcg_offer_number
+    existing_offer_year = offer.offer_year
+
+    if request.method != 'POST':
+        form = OfferForm(instance=offer)
+    else:
+        form = OfferForm(instance=offer, data=request.POST)
+        if form.is_valid():
+            new_offer = form.save(commit=False)
+            # existing order is the same (no change from user)
+            if new_offer.dmcg_offer_number == existing_dmcg_offer_number and new_offer.offer_year == existing_offer_year:
+                return redirect('calculator:nozzle_offers', nozzle.id)
+            else:
+                existing_offers_count = Offer.objects.filter(
+                    dmcg_offer_number=new_offer.dmcg_offer_number,
+                    offer_year=new_offer.offer_year).count()
+                if existing_offers_count < 1:
+                    new_offer.save()
+                    return redirect('calculator:nozzle_offers', nozzle.id)
+                else:
+                    message = 'Taki numer oferty już istnieje!'
+                    context = {'form': form,
+                               'message': message,
+                               'nozzle': nozzle,
+                               'offer': offer,
+                               }
+                    template = 'calculator/edit_nozzle_offer.html'
+
+                    return render(request, template, context)
+
+    context = {'form': form,
+               'nozzle': nozzle,
+               'offer': offer,
+               }
+    template = 'calculator/edit_nozzle_offer.html'
+
+    return render(request, template, context)
+
+
 def orders_view(request):
     orders = Order.objects.all()
     orders_filter = OrderFilter(request.GET, queryset=orders)

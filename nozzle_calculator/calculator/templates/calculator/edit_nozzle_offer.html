@@ -1,0 +1,41 @@
+{% extends 'calculator/base.html' %}
+
+{% include 'calculator/messages.html' %}
+
+{% block content %}
+<div class="content-main">
+  <div class="item-box">
+    <div class="item-header-box">
+      <p>Dysza {{ nozzle.diameter }}
+       profil {{ nozzle.profile }}
+      {{ ratio }}D {{ type_name }}
+      {{ nozzle.segments_quantity}} x {{ nozzle.segments_thickness}}mm - półki,
+      {{ nozzle.ribs_quantity}} x {{ nozzle.ribs_thickness}}mm - żebra,
+      {{ nozzle.theoretical_weight }}kg</p>
+    </div>
+    <div>
+      <div class="item-details-form">
+          {% if message %}
+          <div>
+            <p class="alert-paragraph">{{ message }}</p>
+          </div>
+          {% endif %}
+          <div>
+            <form action="{% url 'calculator:edit_nozzle_offer' nozzle_id=nozzle.id offer_id=offer.id %}" method="post">
+            {% csrf_token %}
+              <p>Numer oferty DMCG</p>
+              <p>{{ form.dmcg_offer_number }}<p>
+              <p>{{ form.offer_year }}</p>
+              <p>Numer zapytanie ofertowego klienta</p>
+              <p>{{ form.client_inquiry_number }}</p>
+              <div class="button-box">
+                <button name="submit" class="confirm-btn">Zapisz</button>
+                <a href="{% url 'calculator:nozzle_offers' nozzle.id %}"><button class="cancel-btn" type="button">Anuluj</button></a>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

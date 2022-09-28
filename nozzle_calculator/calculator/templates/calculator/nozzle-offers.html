@@ -21,7 +21,7 @@
           <thead>
             <tr>
               <th>Nr Oferty</th>
-              <th>Nr oferty klienta</th>
+              <th>Nr zapytania klienta</th>
               <th>Data dodania</th>
               <th></th>
             </tr>
@@ -39,7 +39,7 @@
             {% language 'pl' %}
             <td>{{ offer.date_created|date:"d M Y" }}</td>
             {% endlanguage %}
-            <td><button class="show-btn">Edytuj</button></td>
+            <td><a href="{% url 'calculator:edit_nozzle_offer' nozzle_id=nozzle.id offer_id=offer.id %}"><button class="show-btn">Edytuj</button></a></td>
           </tr>
           {% endfor %}
         </table>
