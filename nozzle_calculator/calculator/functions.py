@@ -16,7 +16,6 @@ def possible_year(start_year, end_year):
     for year in range(end_year, start_year, -1):
         new_tuple = str(year), year
         p_year.append(new_tuple)
-    print(p_year)
     return p_year
 
 
