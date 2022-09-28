@@ -1,5 +1,3 @@
-from datetime import datetime
-
 def translate_type_name(name):
     polish_names = {'Complete st. st. inside': 'wnętrze nierdzewne',
                     'St. st. ring inside': 'pierścień kawitacyjny nierdzewny',
@@ -9,8 +7,6 @@ def translate_type_name(name):
 
 
 def possible_year(start_year, end_year):
-    start = start_year
-    end = end_year
     p_year = []
     new_tuple = ()
     for year in range(end_year, start_year, -1):
