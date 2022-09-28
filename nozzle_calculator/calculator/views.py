@@ -186,7 +186,6 @@ def edit_nozzle_order(request, nozzle_id, order_id):
 
 def add_nozzle_offer(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
-    existing_offers_count = 0
     if request.method != 'POST':
         form = OfferForm()
     else:
