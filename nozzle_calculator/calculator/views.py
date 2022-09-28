@@ -107,6 +107,7 @@ def edit_nozzle(request, nozzle_id):
 
     return render(request, template, context)
 
+
 def add_nozzle_order(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     existing_orders_count = 0
@@ -137,6 +138,48 @@ def add_nozzle_order(request, nozzle_id):
                'nozzle': nozzle,
                }
     template = 'calculator/add_nozzle_order.html'
+
+    return render(request, template, context)
+
+
+def edit_nozzle_order(request, nozzle_id, order_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    order = Order.objects.get(id=order_id)
+    # variable for further order exists check
+    existing_order = order.order_dmcg_number
+    if request.method != 'POST':
+        form = OrderForm(instance=order)
+    else:
+        form = OrderForm(instance=order, data=request.POST)
+        if form.is_valid():
+            new_order = form.save(commit=False)
+            # existing order is the same (no change from user) - do nothing and redirect
+            if new_order.order_dmcg_number == existing_order:
+                return redirect('calculator:nozzle_orders', nozzle.id)
+            # if the order is different, first check whether it already exists
+            else:
+                existing_orders_count = Order.objects.filter(order_dmcg_number=new_order.order_dmcg_number).count()
+                # if the order doesn't exist, save instance and display in template
+                if existing_orders_count < 1:
+                    new_order.save()
+                    return redirect('calculator:nozzle_orders', nozzle.id)
+                # if the order doesn't exist, display error message in template
+                else:
+                    message = 'Takie zlecenie już istnieje!'
+                    context = {'form': form,
+                               'message': message,
+                               'nozzle':nozzle,
+                               'order': order,
+                               }
+                    template = 'calculator/edit_nozzle_order.html'
+
+                    return render(request, template, context)
+
+    context = {'form': form,
+               'nozzle': nozzle,
+               'order': order,
+               }
+    template = 'calculator/edit_nozzle_order.html'
 
     return render(request, template, context)
 
@@ -176,6 +219,7 @@ def add_nozzle_offer(request, nozzle_id):
     template = 'calculator/add_nozzle_offer.html'
 
     return render(request, template, context)
+
 
 def orders_view(request):
     orders = Order.objects.all()

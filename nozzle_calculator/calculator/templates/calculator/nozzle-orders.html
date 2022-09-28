@@ -34,7 +34,7 @@
             {% language 'pl' %}
             <td>{{ order.date_created|date:"d M Y" }}</td>
             {% endlanguage %}
-            <td><button class="show-btn">Edytuj</button></td>
+            <td><a href="{% url 'calculator:edit_nozzle_order' nozzle_id=nozzle.id order_id=order.id %}"><button class="show-btn">Edytuj</button><a/></td>
           </tr>
           {% endfor %}
         </table>
