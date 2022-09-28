@@ -163,7 +163,7 @@ def edit_nozzle_order(request, nozzle_id, order_id):
                 if existing_orders_count < 1:
                     new_order.save()
                     return redirect('calculator:nozzle_orders', nozzle.id)
-                # if the order doesn't exist, display error message in template
+                # if the order exists, display error message in template
                 else:
                     message = 'Takie zlecenie już istnieje!'
                     context = {'form': form,
@@ -232,16 +232,19 @@ def edit_nozzle_offer(request, nozzle_id, offer_id):
         form = OfferForm(instance=offer, data=request.POST)
         if form.is_valid():
             new_offer = form.save(commit=False)
-            # existing order is the same (no change from user)
+            # existing offer is the same (no change from user)
             if new_offer.dmcg_offer_number == existing_dmcg_offer_number and new_offer.offer_year == existing_offer_year:
                 return redirect('calculator:nozzle_offers', nozzle.id)
+            # if the offer is different, first check whether it already exists
             else:
                 existing_offers_count = Offer.objects.filter(
                     dmcg_offer_number=new_offer.dmcg_offer_number,
                     offer_year=new_offer.offer_year).count()
+                # if the offer doesn't exist, save instance and display in template
                 if existing_offers_count < 1:
                     new_offer.save()
                     return redirect('calculator:nozzle_offers', nozzle.id)
+                # if the offer exists, display error message in template
                 else:
                     message = 'Taki numer oferty już istnieje!'
                     context = {'form': form,
