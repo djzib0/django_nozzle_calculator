@@ -14,30 +14,25 @@
         </form>
       </div>
       <div class="item-details-table">
-        <table style="width: 660px">
+        <table style="width: 700px">
           <thead>
             <tr>
-              <th>Nr oferty DMCG</th>
-              <th>Nr zapytania klienta</th>
-              <th style="width: 10em;">Data dodania oferty</th>
-              <th style="width: 18em;">Szczegóły</th>
+              <th style="width: 7.5em;">Nr oferty DMCG</th>
+              <th style="width: em;">Nr zapytania klienta</th>
+              <th style="width: 22em;">Szczegóły</th>
               <th style="width: 5em;"></th>
             </tr>
           </thead>
           {% for offer in offers %}
           <tr>
-            <td>{{ offer.dmcg_offer_number }}</td>
+            <td>{{ offer.dmcg_offer_number }}/{{ offer.offer_year }}</td>
             {% if offer.client_inquiry_number == None %}
               <td>&nbsp -</td>
             {% else %}
               <td>{{ offer.client_inquiry_number }}</td>
             {% endif %}
-            {% load i18n %}
-            {% language 'pl' %}
-            <td>{{ offer.date_created|date:"d M Y" }}</td>
-            {% endlanguage %}
             <td>Dysza {{ offer.nozzle.diameter }}
-              {{ offer.nozzle.profile }} H={{ offer.nozzle.profile_height }}
+              {{ offer.nozzle.profile }} H={{ offer.nozzle.profile_height }}mm,
               {{ offer.nozzle.get_inner_ring_type_display|lower }},
               {{ offer.nozzle.segments_quantity}} x {{ offer.nozzle.segments_thickness}}mm - półki,
               {{ offer.nozzle.ribs_quantity}} x {{ offer.nozzle.ribs_thickness}}mm - żebra,

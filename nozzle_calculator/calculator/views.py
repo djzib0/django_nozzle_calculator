@@ -110,6 +110,9 @@ def edit_nozzle(request, nozzle_id):
 
 def add_nozzle_order(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
+    ratio = round((nozzle.profile_height / nozzle.diameter), 1)
+
+
     existing_orders_count = 0
     if request.method != 'POST':
         form = OrderForm()
@@ -128,6 +131,7 @@ def add_nozzle_order(request, nozzle_id):
                            'message': message,
                            'nozzle_id': nozzle.id,
                            'nozzle': nozzle,
+                           'ratio': ratio,
                            }
                 template = 'calculator/add_nozzle_order.html'
 
@@ -136,6 +140,7 @@ def add_nozzle_order(request, nozzle_id):
     context = {'form': form,
                'nozzle_id': nozzle.id,
                'nozzle': nozzle,
+               'ratio': ratio,
                }
     template = 'calculator/add_nozzle_order.html'
 
@@ -186,6 +191,7 @@ def edit_nozzle_order(request, nozzle_id, order_id):
 
 def add_nozzle_offer(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
+    ratio = round((nozzle.profile_height / nozzle.diameter), 1)
     if request.method != 'POST':
         form = OfferForm()
     else:
@@ -205,6 +211,7 @@ def add_nozzle_offer(request, nozzle_id):
                            'message': message,
                            'nozzle_id': nozzle.id,
                            'nozzle': nozzle,
+                           'ratio': ratio,
                            }
                 template = 'calculator/add_nozzle_offer.html'
 
@@ -214,6 +221,7 @@ def add_nozzle_offer(request, nozzle_id):
     context = {'form': form,
                'nozzle_id': nozzle.id,
                'nozzle': nozzle,
+               'ratio': ratio,
                }
     template = 'calculator/add_nozzle_offer.html'
 
