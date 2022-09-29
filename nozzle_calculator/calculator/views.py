@@ -298,7 +298,7 @@ def offers_view(request):
     offers = offers_filter.qs
 
     context = {'offers': offers,
-               'offers_filter': offers_filter
+               'offers_filter': offers_filter,
                }
     template = 'calculator/offers.html'
 

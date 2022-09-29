@@ -9,7 +9,9 @@
     <div class="item-details">
       <div>
         <form method="get">
+          {% csrf_token %}
           {{ offers_filter.form }}
+          {{ off_filter }}
           <button class="add-btn" type="submit">Szukaj</button>
         </form>
       </div>

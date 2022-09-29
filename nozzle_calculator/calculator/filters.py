@@ -68,7 +68,8 @@ class OfferFilter(django_filters.FilterSet):
     first_year = 2012
     POSSIBLE_YEAR = possible_year(first_year, now)
 
-    dmcg_offer_number = django_filters.CharFilter(lookup_expr='icontains', label='Numer oferty DMCG')
+    dmcg_offer_number = django_filters.CharFilter(lookup_expr='icontains', label='Numer oferty DMCG',
+                                                  widget=forms.TextInput(attrs={'style': 'width: 5em;'}))
     offer_year = django_filters.ChoiceFilter(choices=POSSIBLE_YEAR, lookup_expr='icontains', label='Rok')
     client_inquiry_number = django_filters.CharFilter(lookup_expr='icontains', label='Numer zapytania klienta')
 
