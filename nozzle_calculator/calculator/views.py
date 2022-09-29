@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Count, Sum
 from .models import Nozzle, Order, Offer
 from .forms import NozzleForm, OrderForm, OfferForm
-from .filters import NozzleFilter, OrderFilter
+from .filters import NozzleFilter, OrderFilter, OfferFilter
 
 from .functions import translate_type_name
 
@@ -274,5 +274,19 @@ def orders_view(request):
     context = {'orders_filter': orders_filter,
                'orders': orders}
     template = 'calculator/orders.html'
+
+    return render(request, template, context)
+
+
+def offers_view(request):
+    offers = Offer.objects.all()
+    offers_filter = OfferFilter(request.GET, queryset=offers)
+
+    offers = offers_filter.qs
+
+    context = {'offers': offers,
+               'offers_filter': offers_filter
+               }
+    template = 'calculator/offers.html'
 
     return render(request, template, context)

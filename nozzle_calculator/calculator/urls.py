@@ -17,4 +17,5 @@ urlpatterns = [
     path('nozzle/add_nozzle/', add_nozzle, name='add_nozzle'),
 
     path('orders/', orders_view, name='orders_view'),
+    path('offers/', offers_view, name='offers_view'),
 ]

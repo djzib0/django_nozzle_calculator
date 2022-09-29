@@ -1,0 +1,53 @@
+{% extends 'calculator/base.html' %}
+
+{% block content %}
+<div class="content-main">
+  <div class="item-box wide-box">
+    <div class="item-header-box">
+      <p>Szukaj oferty</p>
+    </div>
+    <div class="item-details">
+      <div>
+        <form method="get">
+          {{ offers_filter.form }}
+          <button class="add-btn" type="submit">Szukaj</button>
+        </form>
+      </div>
+      <div class="item-details-table">
+        <table style="width: 660px">
+          <thead>
+            <tr>
+              <th>Nr oferty DMCG</th>
+              <th>Nr zapytania klienta</th>
+              <th style="width: 10em;">Data dodania oferty</th>
+              <th style="width: 18em;">Szczegóły</th>
+              <th style="width: 5em;"></th>
+            </tr>
+          </thead>
+          {% for offer in offers %}
+          <tr>
+            <td>{{ offer.dmcg_offer_number }}</td>
+            {% if offer.client_inquiry_number == None %}
+              <td>&nbsp -</td>
+            {% else %}
+              <td>{{ offer.client_inquiry_number }}</td>
+            {% endif %}
+            {% load i18n %}
+            {% language 'pl' %}
+            <td>{{ offer.date_created|date:"d M Y" }}</td>
+            {% endlanguage %}
+            <td>Dysza {{ offer.nozzle.diameter }}
+              {{ offer.nozzle.profile }} H={{ offer.nozzle.profile_height }}
+              {{ offer.nozzle.get_inner_ring_type_display|lower }},
+              {{ offer.nozzle.segments_quantity}} x {{ offer.nozzle.segments_thickness}}mm - półki,
+              {{ offer.nozzle.ribs_quantity}} x {{ offer.nozzle.ribs_thickness}}mm - żebra,
+              {{ offer.nozzle.theoretical_weight }}kg</td>
+            <td><a href="{% url 'calculator:nozzle_details' offer.nozzle.id %}"><button class="show-btn">Pokaż</button></a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

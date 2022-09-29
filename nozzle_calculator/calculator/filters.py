@@ -2,6 +2,9 @@ import django_filters
 from django import forms
 
 from .models import *
+from .functions import possible_year
+
+from datetime import datetime
 
 
 class NozzleFilter(django_filters.FilterSet):
@@ -58,3 +61,27 @@ class OrderFilter(django_filters.FilterSet):
         super(OrderFilter, self).__init__(*args, **kwargs)
         if self.data == {}:
             self.queryset = self.queryset.none()
+
+
+class OfferFilter(django_filters.FilterSet):
+    now = datetime.now().year
+    first_year = 2012
+    POSSIBLE_YEAR = possible_year(first_year, now)
+
+    dmcg_offer_number = django_filters.CharFilter(lookup_expr='icontains', label='Numer oferty DMCG')
+    offer_year = django_filters.ChoiceFilter(choices=POSSIBLE_YEAR, lookup_expr='icontains', label='Rok')
+    client_inquiry_number = django_filters.CharFilter(lookup_expr='icontains', label='Numer zapytania klienta')
+
+
+    class Meta:
+        model = Offer
+        fields = ['dmcg_offer_number', 'offer_year', 'client_inquiry_number']
+        exclude = ['date_created']
+
+    # below code to not show any results after loading page.
+    # it will show result of filtering after pressing search button.
+    def __init__(self, *args, **kwargs):
+        super(OfferFilter, self).__init__(*args, **kwargs)
+        if self.data == {}:
+            self.queryset = self.queryset.none()
+
