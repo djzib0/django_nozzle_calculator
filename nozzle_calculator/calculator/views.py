@@ -67,9 +67,12 @@ def nozzle_orders_view(request, nozzle_id):
 def nozzle_offers_view(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     offers = nozzle.offer_set.order_by('dmcg_offer_number')
+    ratio = round((nozzle.profile_height / nozzle.diameter), 1)
 
     context = {'nozzle': nozzle,
-               'offers': offers}
+               'offers': offers,
+               'ratio': ratio,
+               }
     template = 'calculator/nozzle-offers.html'
 
     return render(request, template, context)
@@ -93,6 +96,7 @@ def add_nozzle(request):
 
 def edit_nozzle(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
+    ratio = round((nozzle.profile_height / nozzle.diameter), 1)
     if request.method != 'POST':
         form = NozzleForm(instance=nozzle)
     else:
@@ -112,8 +116,6 @@ def add_nozzle_order(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     ratio = round((nozzle.profile_height / nozzle.diameter), 1)
 
-
-    existing_orders_count = 0
     if request.method != 'POST':
         form = OrderForm()
     else:
