@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.db.models import Count, Sum
+from django.db.models import Count
 from .models import Nozzle, Order, Offer
 from .forms import NozzleForm, OrderForm, OfferForm
 from .filters import NozzleFilter, OrderFilter, OfferFilter
@@ -7,6 +7,8 @@ from .filters import NozzleFilter, OrderFilter, OfferFilter
 from .functions import translate_type_name
 
 # Create your views here.
+
+
 def index_view(request):
     context = {}
     template = 'calculator/index.html'
@@ -106,7 +108,8 @@ def edit_nozzle(request, nozzle_id):
             return redirect('calculator:nozzle_details', nozzle.id)
 
     context = {'form': form,
-               'nozzle': nozzle}
+               'nozzle': nozzle,
+               'ratio': ratio}
     template = 'calculator/edit_nozzle.html'
 
     return render(request, template, context)
@@ -175,7 +178,7 @@ def edit_nozzle_order(request, nozzle_id, order_id):
                     message = 'Takie zlecenie już istnieje!'
                     context = {'form': form,
                                'message': message,
-                               'nozzle':nozzle,
+                               'nozzle': nozzle,
                                'order': order,
                                }
                     template = 'calculator/edit_nozzle_order.html'
@@ -219,7 +222,6 @@ def add_nozzle_offer(request, nozzle_id):
 
                 return render(request, template, context)
 
-
     context = {'form': form,
                'nozzle_id': nozzle.id,
                'nozzle': nozzle,
@@ -243,7 +245,8 @@ def edit_nozzle_offer(request, nozzle_id, offer_id):
         if form.is_valid():
             new_offer = form.save(commit=False)
             # existing offer is the same (no change from user)
-            if new_offer.dmcg_offer_number == existing_dmcg_offer_number and new_offer.offer_year == existing_offer_year:
+            if new_offer.dmcg_offer_number == existing_dmcg_offer_number and \
+                    new_offer.offer_year == existing_offer_year:
                 return redirect('calculator:nozzle_offers', nozzle.id)
             # if the offer is different, first check whether it already exists
             else:
