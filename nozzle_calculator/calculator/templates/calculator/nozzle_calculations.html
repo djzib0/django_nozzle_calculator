@@ -14,32 +14,29 @@
     <div class="item-details">
       <div class="button-box">
         <a href="{% url 'calculator:nozzle_details' nozzle.id %}"><button class="cancel-btn">Wróć</button></a>
-        <a href="{% url 'calculator:add_nozzle_offer' nozzle.id %}"><button class="add-btn">Dodaj numer oferty</button></a>
+        <a href="{% url 'calculator:add_nozzle_offer' nozzle.id %}"><button class="add-btn">Dodaj kalkulację</button></a>
       </div>
       <div class="item-details-table">
         <table>
           <thead>
             <tr>
-              <th>Nr Oferty</th>
-              <th>Nr zapytania klienta</th>
-              <th>Data dodania</th>
+              <th>Nr kalkulacji</th>
+              <th>Data utworzenia</th>
+              <th>Godziny zwykłe</th>
+              <th>Godziny dodatkowe</th>
               <th></th>
             </tr>
           </thead>
-          {% for offer in offers %}
+          {% for calculation in calculations%}
           <tr>
-            <td>{{ offer.dmcg_offer_number }}/{{ offer.offer_year }}</td>
-            {% if offer.client_inquiry_number %}
-              <td>{{ offer.client_inquiry_number }}</td>
-              {% else %}
-              <td>-</td>
-            {% endif %}
-
+            <td>{{ calculation.id }}</td>
             {% load i18n %}
             {% language 'pl' %}
-            <td>{{ offer.date_created|date:"d M Y" }}</td>
+            <td>{{ calculation.date_created|date:"d M Y" }}</td>
             {% endlanguage %}
-            <td><a href="{% url 'calculator:edit_nozzle_offer' nozzle_id=nozzle.id offer_id=offer.id %}"><button class="show-btn">Edytuj</button></a></td>
+            <td></td>
+            <td></td>
+            <td><a href=""><button class="show-btn">Pokaż</button></a></td>
           </tr>
           {% endfor %}
         </table>

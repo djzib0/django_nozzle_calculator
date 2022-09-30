@@ -35,11 +35,9 @@ def nozzle_details_view(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     ratio = round((nozzle.profile_height / nozzle.diameter), 1)
     type_name = translate_type_name(str(nozzle.inner_ring_type))
-    orders = Order.objects.all()
-    offers = Offer.objects.all()
-    # calculations = NozzleCa
-    nozzle_total_orders = orders.filter(nozzle=nozzle).count()
-    nozzle_total_offers = offers.filter(nozzle=nozzle).count()
+    nozzle_total_calculations = NozzleCalculation.objects.filter(nozzle=nozzle).count()
+    nozzle_total_orders = Order.objects.filter(nozzle=nozzle).count()
+    nozzle_total_offers = Offer.objects.filter(nozzle=nozzle).count()
 
     context = {'nozzle': nozzle,
                'ratio': ratio,
@@ -47,6 +45,7 @@ def nozzle_details_view(request, nozzle_id):
                'nozzle_total_orders': nozzle_total_orders,
                'nozzle_total_offers': nozzle_total_offers,
                'nozzle_id': nozzle_id,
+               'nozzle_total_calculations': nozzle_total_calculations,
                }
     template = 'calculator/nozzle-details.html'
 
@@ -77,6 +76,20 @@ def nozzle_offers_view(request, nozzle_id):
                'ratio': ratio,
                }
     template = 'calculator/nozzle-offers.html'
+
+    return render(request, template, context)
+
+
+def nozzle_calculations_view(request, nozzle_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    ratio = round((nozzle.profile_height / nozzle.diameter), 1)
+    calculations = nozzle.nozzlecalculation_set.order_by('date_created')
+
+    template = 'calculator/nozzle_calculations.html'
+    context = {'nozzle': nozzle,
+               'calculations': calculations,
+               'ratio': ratio,
+               }
 
     return render(request, template, context)
 

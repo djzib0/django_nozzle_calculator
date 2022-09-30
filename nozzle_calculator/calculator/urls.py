@@ -9,6 +9,7 @@ urlpatterns = [
     path('nozzle/<int:nozzle_id>/', nozzle_details_view, name='nozzle_details'),
     path('nozzle/<int:nozzle_id>/orders', nozzle_orders_view, name='nozzle_orders'),
     path('nozzle/<int:nozzle_id>/offers', nozzle_offers_view, name='nozzle_offers'),
+    path('nozzle/<int:nozzle_id>/calculations', nozzle_calculations_view, name='nozzle_calculations'),
     path('nozzle/<int:nozzle_id>/add_order', add_nozzle_order, name='add_nozzle_order'),
     path('nozzle/<int:nozzle_id>/order/edit_order/<int:order_id>', edit_nozzle_order, name='edit_nozzle_order'),
     path('nozzle/<int:nozzle_id>/add_offer', add_nozzle_offer, name='add_nozzle_offer'),
