@@ -83,7 +83,7 @@ class NozzleCalculation(models.Model):
         return f'Kalkulacja nr {self.id} - dotyczy dyszy {self.nozzle.id}'
 
 
-class AdditionalHours(models.Model):
+class AdditionalNozzleHours(models.Model):
     """Represents additional hours (if required to be added to calculation"""
     calculation = models.ForeignKey(NozzleCalculation, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)

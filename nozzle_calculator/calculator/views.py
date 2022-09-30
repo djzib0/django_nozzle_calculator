@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count
-from .models import Nozzle, Order, Offer
+from .models import Nozzle, Order, Offer, NozzleCalculation, AdditionalNozzleHours
 from .forms import NozzleForm, OrderForm, OfferForm
 from .filters import NozzleFilter, OrderFilter, OfferFilter
 
@@ -37,6 +37,7 @@ def nozzle_details_view(request, nozzle_id):
     type_name = translate_type_name(str(nozzle.inner_ring_type))
     orders = Order.objects.all()
     offers = Offer.objects.all()
+    # calculations = NozzleCa
     nozzle_total_orders = orders.filter(nozzle=nozzle).count()
     nozzle_total_offers = offers.filter(nozzle=nozzle).count()
 
