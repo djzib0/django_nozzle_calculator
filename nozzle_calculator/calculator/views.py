@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.db.models import Count
+from django.db.models import Count, Sum, F
 from .models import Nozzle, Order, Offer, NozzleCalculation, AdditionalNozzleHours
 from .forms import NozzleForm, OrderForm, OfferForm
 from .filters import NozzleFilter, OrderFilter, OfferFilter
 
-from .functions import translate_type_name
+from .functions import translate_type_name, count_total_calculation_hours
 
 # Create your views here.
 
@@ -83,12 +83,16 @@ def nozzle_offers_view(request, nozzle_id):
 def nozzle_calculations_view(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     ratio = round((nozzle.profile_height / nozzle.diameter), 1)
-    calculations = nozzle.nozzlecalculation_set.order_by('date_created')
+    calculations = nozzle.nozzlecalculation_set.order_by('date_created').annotate(
+        total_additional_hours=Sum(F('additionalnozzlehours__additional_hours_amount'))).annotate(
+        total_hours=F('assembly_hours')+F('welding_hours'))
+
 
     template = 'calculator/nozzle_calculations.html'
     context = {'nozzle': nozzle,
                'calculations': calculations,
                'ratio': ratio,
+               # 'total_additional_hours': total_additional_hours,
                }
 
     return render(request, template, context)

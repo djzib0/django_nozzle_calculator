@@ -6,6 +6,11 @@ def translate_type_name(name):
     return polish_names[name]
 
 
+def count_total_calculation_hours(obj):
+    print('test')
+
+
+
 def possible_year(start_year, end_year):
     p_year = []
     new_tuple = ()
@@ -13,10 +18,5 @@ def possible_year(start_year, end_year):
         new_tuple = str(year), year
         p_year.append(new_tuple)
     return p_year
-
-
-# now = datetime.now().year
-# start = 2018
-# possible_year(start, now)
 
 
