@@ -65,4 +65,33 @@ class Offer(models.Model):
         return f"Offer {self.dmcg_offer_number}/{self.offer_year} - client number {self.client_inquiry_number}"
 
 
+class NozzleCalculation(models.Model):
+    """Represents calculation for nozzle"""
+    nozzle = models.ForeignKey(Nozzle, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+    assembly_hours = models.PositiveIntegerField(blank=True, null=True)
+    welding_hours = models.PositiveIntegerField(blank=True, null=True)
+    spinning_hours = models.PositiveIntegerField(blank=True, null=True)
+    small_machining_hours = models.PositiveIntegerField(blank=True, null=True)
+    medium_machining_hours = models.PositiveIntegerField(blank=True, null=True)
+    tos_machining_hours = models.PositiveIntegerField(blank=True, null=True)
+    cutting_plates_hours = models.PositiveIntegerField(blank=True, null=True)
+    bending_hours = models.PositiveIntegerField(blank=True, null=True)
+    rolling_profiles_hours = models.PositiveIntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return f'Kalkulacja nr {self.id} - dotyczy dyszy {self.nozzle.id}'
+
+
+class AdditionalHours(models.Model):
+    """Represents additional hours (if required to be added to calculation"""
+    calculation = models.ForeignKey(NozzleCalculation, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
+    additional_hours_amount = models.PositiveIntegerField(default=0, blank=True)
+    comment = models.TextField(blank=False)
+
+
+
+
+
 
