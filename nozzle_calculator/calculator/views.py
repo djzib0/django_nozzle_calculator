@@ -85,7 +85,7 @@ def nozzle_calculations_view(request, nozzle_id):
     ratio = round((nozzle.profile_height / nozzle.diameter), 1)
     calculations = nozzle.nozzlecalculation_set.order_by('date_created').annotate(
         total_additional_hours=Sum(F('additionalnozzlehours__additional_hours_amount'))).annotate(
-        total_hours=F('assembly_hours')+F('welding_hours'))
+        total_hours=F('assembly_hours')+F('welding_hours'))  ######## dokończyć sumowanie!!!!!!!!!!!!!!!!!!!!
 
 
     template = 'calculator/nozzle_calculations.html'
