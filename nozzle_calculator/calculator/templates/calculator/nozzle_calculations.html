@@ -14,7 +14,7 @@
     <div class="item-details">
       <div class="button-box">
         <a href="{% url 'calculator:nozzle_details' nozzle.id %}"><button class="cancel-btn">Wróć</button></a>
-        <a href="{% url 'calculator:add_nozzle_offer' nozzle.id %}"><button class="add-btn">Dodaj kalkulację</button></a>
+        <a href="{% url 'calculator:add_nozzle_calculation' nozzle_id=nozzle.id %}"><button class="add-btn">Dodaj kalkulację</button></a>
       </div>
       <div class="item-details-table">
         <table>
@@ -35,9 +35,12 @@
             <td>{{ calculation.date_created|date:"d M Y" }}</td>
             {% endlanguage %}
             <td>{{ calculation.total_hours }}</td>
-            <td>{{ calculation.total_additional_hours }}</td>
-
-            <td><a href=""><button class="show-btn">Pokaż</button></a></td>
+            {% if calculation.total_additional_hours %}
+              <td>{{ calculation.total_additional_hours }}</td>
+            {% else %}
+              <td>&nbsp -</td>
+            {% endif %}
+            <td><a href="{% url 'calculator:nozzle_calculation_details' calculation.id %}"><button class="show-btn">Pokaż</button></a></td>
           </tr>
           {% endfor %}
         </table>

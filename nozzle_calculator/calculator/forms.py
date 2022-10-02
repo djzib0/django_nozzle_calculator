@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Nozzle, Order, Offer
+from .models import Nozzle, Order, Offer, NozzleCalculation
 
 from datetime import datetime
 
@@ -84,8 +84,3 @@ class OfferForm(forms.ModelForm):
         # labels = {'dmcg_offer_number': 'Numer oferty DMCG',
         #           'client_inquiry_number': 'Numer zapytania ofertowego klienta'}
         exclude = ['date_created']
-
-
-
-
-

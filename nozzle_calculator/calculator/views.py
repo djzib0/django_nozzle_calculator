@@ -4,7 +4,7 @@ from .models import Nozzle, Order, Offer, NozzleCalculation, AdditionalNozzleHou
 from .forms import NozzleForm, OrderForm, OfferForm
 from .filters import NozzleFilter, OrderFilter, OfferFilter
 
-from .functions import translate_type_name, count_total_calculation_hours
+from .functions import translate_type_name, calculate_nozzle_welding_material_and_hours
 
 # Create your views here.
 
@@ -96,6 +96,41 @@ def nozzle_calculations_view(request, nozzle_id):
                }
 
     return render(request, template, context)
+
+
+def nozzle_calculation_details_view(request, calculation_id):
+    calculation = NozzleCalculation(id=calculation_id)
+    context = {'calculation': calculation,
+               }
+    template = 'calculator/nozzle_calculation_details.html'
+
+    return render(request, template, context)
+
+
+def add_nozzle_calculation_view(request, nozzle_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    test_result = calculate_nozzle_welding_material_and_hours(nozzle)
+
+    context = {'test_result': test_result,
+               'nozzle': nozzle}
+    template = 'calculator/add_nozzle_calculation.html'
+
+    return render(request, template, context)
+
+
+def add_nozzle_calculation_confirm_view(request, nozzle_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    test_result = calculate_nozzle_welding_material_and_hours(nozzle)
+
+    new_calculation = NozzleCalculation(nozzle=nozzle, welding_hours=test_result)
+    new_calculation.save()
+
+    context = {'test_result': test_result,
+               'nozzle': nozzle}
+    template = 'calculator/add_nozzle_calculation_confirm.html'
+
+    return render(request, template, context)
+
 
 
 def add_nozzle(request):

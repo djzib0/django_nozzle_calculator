@@ -78,6 +78,7 @@ class NozzleCalculation(models.Model):
     cutting_plates_hours = models.PositiveIntegerField(default=0, blank=True, null=True)
     bending_hours = models.PositiveIntegerField(default=0, blank=True, null=True)
     rolling_profiles_hours = models.PositiveIntegerField(default=0, blank=True, null=True)
+    comment = models.TextField(default='', blank=True, null=True)
 
     def __str__(self):
         return f'Kalkulacja nr {self.id} - dotyczy dyszy {self.nozzle.id}'
