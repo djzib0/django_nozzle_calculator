@@ -40,7 +40,8 @@
             {% else %}
               <td>&nbsp -</td>
             {% endif %}
-            <td><a href="{% url 'calculator:nozzle_calculation_details' calculation.id %}"><button class="show-btn">Pokaż</button></a></td>
+            <td><a href="{% url 'calculator:nozzle_calculation_details' nozzle_id=nozzle.id calculation_id=calculation.id %}">
+              <button class="show-btn">Pokaż</button></a></td>
           </tr>
           {% endfor %}
         </table>

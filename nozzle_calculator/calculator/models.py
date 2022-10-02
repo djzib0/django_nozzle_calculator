@@ -86,10 +86,23 @@ class NozzleCalculation(models.Model):
 
 class AdditionalNozzleHours(models.Model):
     """Represents additional hours (if required to be added to calculation"""
+
+    GROUP = [('assembly_hours', 'Montaż'),
+             ('welding_hours', 'Spawanie'),
+             ('spinning_hours', 'Wyoblanie'),
+             ('small_machining_hours', 'Obróbka lekka'),
+             ('medium_machining_hours', 'Obróbka średnia'),
+             ('tos_machining_hours', 'Obróbka TOS'),
+             ('cutting_plates_hours', 'Palenie blach'),
+             ('bending_hours', 'Gięcie blach'),
+             ('rolling_profiles_hours', 'Walcowanie rur'),
+             ]
+
     calculation = models.ForeignKey(NozzleCalculation, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     additional_hours_amount = models.PositiveIntegerField(default=0, blank=True)
     comment = models.TextField(blank=False)
+    group = models.CharField(max_length=40, blank=True, null=True, choices=GROUP)
 
 
 

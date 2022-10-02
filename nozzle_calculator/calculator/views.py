@@ -85,8 +85,9 @@ def nozzle_calculations_view(request, nozzle_id):
     ratio = round((nozzle.profile_height / nozzle.diameter), 1)
     calculations = nozzle.nozzlecalculation_set.order_by('date_created').annotate(
         total_additional_hours=Sum(F('additionalnozzlehours__additional_hours_amount'))).annotate(
-        total_hours=F('assembly_hours')+F('welding_hours'))  ######## dokończyć sumowanie!!!!!!!!!!!!!!!!!!!!
-
+        total_hours=F('assembly_hours') + F('welding_hours') + F('spinning_hours') + F('small_machining_hours')
+            + F('medium_machining_hours') + F('tos_machining_hours') + F('cutting_plates_hours')
+            + F('bending_hours') + F('rolling_profiles_hours'))
 
     template = 'calculator/nozzle_calculations.html'
     context = {'nozzle': nozzle,
@@ -98,9 +99,23 @@ def nozzle_calculations_view(request, nozzle_id):
     return render(request, template, context)
 
 
-def nozzle_calculation_details_view(request, calculation_id):
-    calculation = NozzleCalculation(id=calculation_id)
+def nozzle_calculation_details_view(request, nozzle_id, calculation_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    ratio = round((nozzle.profile_height / nozzle.diameter), 1)
+    calculation = NozzleCalculation.objects.get(id=calculation_id)
+    total_hours = (calculation.assembly_hours + calculation.welding_hours + calculation.spinning_hours
+                   + calculation.spinning_hours + calculation.small_machining_hours
+                   + calculation.medium_machining_hours + calculation.tos_machining_hours
+                   + calculation.cutting_plates_hours + calculation.bending_hours
+                   + calculation.rolling_profiles_hours)
+
+    additional_hours = AdditionalNozzleHours.objects.filter(calculation=calculation).aggregate(total_hours=Sum('additional_hours_amount'))
+
     context = {'calculation': calculation,
+               'nozzle': nozzle,
+               'ratio': ratio,
+               'total_hours': total_hours,
+               'additional_hours': additional_hours,
                }
     template = 'calculator/nozzle_calculation_details.html'
 
