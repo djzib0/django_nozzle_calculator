@@ -101,7 +101,7 @@ class AdditionalNozzleHours(models.Model):
     calculation = models.ForeignKey(NozzleCalculation, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     additional_hours_amount = models.PositiveIntegerField(default=0, blank=True)
-    comment = models.TextField(blank=False)
+    comment = models.TextField(blank=False, max_length=200)
     group = models.CharField(max_length=40, blank=True, null=True, choices=GROUP)
 
 

@@ -109,13 +109,101 @@ def nozzle_calculation_details_view(request, nozzle_id, calculation_id):
                    + calculation.cutting_plates_hours + calculation.bending_hours
                    + calculation.rolling_profiles_hours)
 
+    calculations = calculation.additionalnozzlehours_set.order_by('group')
+
     additional_hours = AdditionalNozzleHours.objects.filter(calculation=calculation).aggregate(total_hours=Sum('additional_hours_amount'))
+
+    sum_of_all_hours = additional_hours['total_hours'] + total_hours
+
+    additional_assembly_hours = AdditionalNozzleHours.objects.filter(
+        calculation=calculation, group='assembly_hours').\
+        aggregate(total_hours=Sum('additional_hours_amount'))
+    try:
+        all_assembly_hours = additional_assembly_hours['total_hours'] + calculation.assembly_hours
+    except:
+        all_assembly_hours = calculation.assembly_hours
+
+    additional_welding_hours = AdditionalNozzleHours.objects.filter(
+        calculation=calculation, group='welding_hours').\
+        aggregate(total_hours=Sum('additional_hours_amount'))
+    try:
+        all_welding_hours = additional_welding_hours['total_hours'] + calculation.welding_hours
+    except:
+        all_welding_hours = calculation.welding_hours
+
+    additional_spinning_hours = AdditionalNozzleHours.objects.filter(
+        calculation=calculation, group='spinning_hours').\
+        aggregate(total_hours=Sum('additional_hours_amount'))
+    try:
+       all_spinning_hours = additional_spinning_hours['total_hours'] + calculation.spinning_hours
+    except:
+        all_spinning_hours = calculation.spinning_hours
+
+    additional_small_machining_hours = AdditionalNozzleHours.objects.filter(
+        calculation=calculation, group='small_machining_hours'). \
+        aggregate(total_hours=Sum('additional_hours_amount'))
+    try:
+        all_small_machining_hours = additional_small_machining_hours['total_hours'] + calculation.small_machining_hours
+    except:
+        all_small_machining_hours = calculation.small_machining_hours
+
+    additional_medium_machining_hours = AdditionalNozzleHours.objects.filter(
+        calculation=calculation, group='medium_machining_hours'). \
+        aggregate(total_hours=Sum('additional_hours_amount'))
+    try:
+        all_medium_machining_hours = additional_medium_machining_hours['total_hours'] + calculation.medium_machining_hours
+    except:
+        all_medium_machining_hours = calculation.medium_machining_hours
+
+    additional_tos_machining_hours = AdditionalNozzleHours.objects.filter(
+        calculation=calculation, group='tos_machining_hours'). \
+        aggregate(total_hours=Sum('additional_hours_amount'))
+    try:
+        all_tos_machining_hours = additional_tos_machining_hours['total_hours'] + calculation.tos_machining_hours
+    except:
+        all_tos_machining_hours = calculation.tos_machining_hours
+
+    additional_cutting_plates_hours = AdditionalNozzleHours.objects.filter(
+        calculation=calculation, group='cutting_plates_hours'). \
+        aggregate(total_hours=Sum('additional_hours_amount'))
+    try:
+        all_cutting_plates_hours = additional_cutting_plates_hours['total_hours'] + calculation.cutting_plates_hours
+    except:
+        all_cutting_plates_hours = calculation.cutting_plates_hours
+
+    additional_bending_hours = AdditionalNozzleHours.objects.filter(
+        calculation=calculation, group='bending__hours'). \
+        aggregate(total_hours=Sum('additional_hours_amount'))
+    try:
+        all_bending_hours = additional_bending_hours['total_hours'] + calculation.bending_hours
+    except:
+        all_bending_hours = calculation.bending_hours
+
+    additional_rolling_profiles_hours = AdditionalNozzleHours.objects.filter(
+        calculation=calculation, group='rolling_profiles_hours'). \
+        aggregate(total_hours=Sum('additional_hours_amount'))
+    try:
+        all_rolling_profiles_hours = additional_rolling_profiles_hours['total_hours'] + calculation.rolling_profiles_hours
+    except:
+        all_rolling_profiles_hours = calculation.rolling_profiles_hours
+
 
     context = {'calculation': calculation,
                'nozzle': nozzle,
                'ratio': ratio,
+               'calculations': calculations,
                'total_hours': total_hours,
                'additional_hours': additional_hours,
+               'sum_of_all_hours': sum_of_all_hours,
+               'all_assembly_hours': all_assembly_hours,
+               'all_welding_hours': all_welding_hours,
+               'all_spinning_hours': all_spinning_hours,
+               'all_small_machining_hours': all_small_machining_hours,
+               'all_medium_machining_hours': all_medium_machining_hours,
+               'all_tos_machining_hours': all_tos_machining_hours,
+               'all_cutting_plates_hours': all_cutting_plates_hours,
+               'all_bending_hours': all_bending_hours,
+               'all_rolling_profiles_hours': all_rolling_profiles_hours
                }
     template = 'calculator/nozzle_calculation_details.html'
 

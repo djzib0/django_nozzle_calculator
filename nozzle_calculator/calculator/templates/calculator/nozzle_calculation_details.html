@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="content-main">
-  <div class="item-box wide-box">
+  <div class="item-box">
     <div class="item-header-box">
       <p>Szczegóły kalkulacji dla dyszy {{ nozzle.diameter }}
        profil {{ nozzle.profile }}
@@ -12,70 +12,100 @@
       {{ nozzle.theoretical_weight }}kg</p>
     </div>
     <div class="item-details">
-      <div class="item-details-table">
-        <table style="width: 660px">
-          <thead>
-            <tr>
-              <th colspan="4" style="text-align: center; background-color: black;">
-                Podsumowanie
-              </th>
-            </tr>
-            <tr>
-              <th style="width: 9em;">Nazwa</th>
-              <th style="width: 3em;">Ilość godzin</th>
-              <th style="width: 9em;">Nazwa</th>
-              <th style="width: 3em;">Ilość kg</th>
-            </tr>
-          </thead>
-            <tr>
-              <td>Suma wszystkich podstawowych godzin</td>
-              <td>{{ total_hours }}</td>
-              <td>Drut zwykły</td>
-              <td>Dodać i przekazać wartość</td>
-            </tr>
-            <tr>
-              <td>Suma wszystkich dodatkowych godzin</td>
-              {% if additional_hours.total_hours == None %}
-                <td>&nbsp; - </td>
-              {% else %}
-                <td>{{ additional_hours.total_hours }} </td>
-              {% endif %}
-              <td>Drut nierdzewny</td>
-              <td>Dodać i przekazać wartość</td>
-            </tr>
-            <tr></tr>
-            <tr> {{ total_assembly_hours }}</tr>
-            <tr> {{ total_welding_hours }}</tr>
-            <tr> {{ total_small_machining_hours }}</tr>
-            <tr> {{ total_medium_machining_hours }}</tr>
-            <tr> {{ total_tos_machining_hours }}</tr>
-        </table>
+      <div class="button-box">
+        <a href="{% url 'calculator:nozzle_calculations' nozzle.id %}"><button class="cancel-btn">Wróć</button></a>      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Suma godzin podstawowych:</p>
+        <p class="item-detail-value">{{ total_hours }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Suma godzin dodatkowych:</p>
+        <p class="item-detail-value">{{ additional_hours.total_hours }}</p>
       </div>
 
+      <hr>
+
+      <div class="item-details-box">
+        <p class="item-detail-name">Razem</p>
+        <p class="item-detail-value" style="color:red;">{{ sum_of_all_hours }}</p>
+      </div>
+
+      <hr>
+
+      <div class="item-details-box">
+        <p class="item-detail-name">Montaż:</p>
+        <p class="item-detail-value">{{ all_assembly_hours }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Spawanie:</p>
+        <p class="item-detail-value">{{ all_welding_hours }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Wyoblanie:</p>
+        <p class="item-detail-value">{{ all_spinning_hours }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Obróbka lekka:</p>
+        <p class="item-detail-value">{{ all_small_machining_hours }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Obróbka średnia:</p>
+        <p class="item-detail-value">{{ all_medium_machining_hours }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Obróbka TOS:</p>
+        <p class="item-detail-value">{{ all_tos_machining_hours }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Palenie ogniowe:</p>
+        <p class="item-detail-value">{{ all_cutting_plates_hours }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Gięcie blach:</p>
+        <p class="item-detail-value">{{ all_bending_hours }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Walcowanie rur/prętów:</p>
+         <p class="item-detail-value">{{ all_rolling_profiles_hours }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="item-box">
+    <div class="item-header-box">
+      <p>Godziny dodatkowe</p>
+    </div>
+    <div class="item-details">
+
+      <div class="item-details-box">
+        <p class="item-detail-value">{{ calculation.get_group_display }}</p>
+        <p class="item-detail-value">{{ calculation.additional_hours_amount }}</p>
+        <p class="item-detail-value">{{ calculation.comment }}</p>
+        <a href="{% url 'calculator:nozzle_orders' nozzle.id %}">
+          <button class="show-btn" type="button">Pokaż</button>
+        </a>
+      </div>
       <div class="item-details-table">
-        <table style="width: 660px">
+        <table style="width: 48em;">
           <thead>
             <tr>
-              <th colspan="3" style="text-align: center; background-color: black;">
-                Szczegóły
-              </th>
-            </tr>
-            <tr>
-              <th>Nazwa operacji</th>
-              <th>Ilość godzin</th>
-              <th style="width: 10em;">Uwagi</th>
+              <th style="width:6em;">Nazwa</th>
+              <th style="width:6em;">Ilość godzin</th>
+              <th style="width:28em;">Komentarz</th>
+              <th></th>
             </tr>
           </thead>
+          {% for calculation in calculations %}
           <tr>
-            <td>Montaż zwijki</td>
-            <td>Dodać i przekazać wartość</td>
-            <td>Dodać i przekazać wartość (jeżeli jest)</td>
+            <td>{{ calculation.get_group_display }}</td>
+            <td>{{ calculation.additional_hours_amount }}</td>
+            <td>{{ calculation.comment|truncatechars:170 }}</td>
+            <td>
+              <a href=""><button class="show-btn">Edytuj</button></a>
+            <a href=""><button class="delete-btn">Usuń</button></a>
+            </td>
           </tr>
-          <tr>
-            <td>Montaż ...</td>
-            <td>Dodać i przekazać wartość</td>
-            <td>Dodać i przekazać wartość (jeżeli jest)</td>
-          </tr>
+          {% endfor %}
         </table>
       </div>
     </div>
