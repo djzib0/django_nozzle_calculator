@@ -1,0 +1,12 @@
+{% extends 'calculator/base.html' %}
+
+{% block content %}
+
+<form method="post" action="{% url 'calculator:edit_additional_nozzle_hours' nozzle.id calculation.id additional_nozzle_hours.id %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Zapisz</button>
+  <a href="{% url 'calculator:nozzle_calculation_details' nozzle.id calculation.id %}"><button type="button">Zapisz</button></a>
+</form>
+
+{% endblock content %}

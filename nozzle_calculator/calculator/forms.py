@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Nozzle, Order, Offer, NozzleCalculation
+from .models import Nozzle, Order, Offer, NozzleCalculation, AdditionalNozzleHours
 
 from datetime import datetime
 
@@ -84,3 +84,13 @@ class OfferForm(forms.ModelForm):
         # labels = {'dmcg_offer_number': 'Numer oferty DMCG',
         #           'client_inquiry_number': 'Numer zapytania ofertowego klienta'}
         exclude = ['date_created']
+
+
+class AdditionalNozzleHoursForm(forms.ModelForm):
+    class Meta:
+        model = AdditionalNozzleHours
+        fields = {'additional_hours_amount', 'comment', 'group'}
+        labels = {'additional_hours_amount': 'Ilość dodatkowych godzin',
+                  'comment': 'Uwagi',
+                  'group': 'Rodzaj operacji'}
+        exclude = ['calculation', 'date_created']

@@ -78,11 +78,8 @@
     <div class="item-details">
 
       <div class="item-details-box">
-        <p class="item-detail-value">{{ calculation.get_group_display }}</p>
-        <p class="item-detail-value">{{ calculation.additional_hours_amount }}</p>
-        <p class="item-detail-value">{{ calculation.comment }}</p>
-        <a href="{% url 'calculator:nozzle_orders' nozzle.id %}">
-          <button class="show-btn" type="button">Pokaż</button>
+        <a href="{% url 'calculator:add_additional_nozzle_hours' nozzle.id calculation.id %}">
+          <button class="add-btn" type="button">Dodaj</button>
         </a>
       </div>
       <div class="item-details-table">
@@ -95,14 +92,16 @@
               <th></th>
             </tr>
           </thead>
-          {% for calculation in calculations %}
+          {% for additional_nozzle_hour in additional_nozzle_hours %}
           <tr>
-            <td>{{ calculation.get_group_display }}</td>
-            <td>{{ calculation.additional_hours_amount }}</td>
-            <td>{{ calculation.comment|truncatechars:170 }}</td>
+            <td>{{ additional_nozzle_hour.get_group_display }}</td>
+            <td>{{ additional_nozzle_hour.additional_hours_amount }}</td>
+            <td>{{ additional_nozzle_hour.comment|truncatechars:170 }}</td>
             <td>
-              <a href=""><button class="show-btn">Edytuj</button></a>
-            <a href=""><button class="delete-btn">Usuń</button></a>
+              <a href="{% url 'calculator:edit_additional_nozzle_hours' nozzle.id calculation.id additional_nozzle_hour.id %}">
+                <button class="show-btn">Edytuj</button>
+              </a>
+            <a href="{% url 'calculator:delete_additional_nozzle_hours' nozzle.id calculation.id additional_nozzle_hour.id %}"><button class="delete-btn">Usuń</button></a>
             </td>
           </tr>
           {% endfor %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Count, Sum, F
 from .models import Nozzle, Order, Offer, NozzleCalculation, AdditionalNozzleHours
-from .forms import NozzleForm, OrderForm, OfferForm
+from .forms import NozzleForm, OrderForm, OfferForm, AdditionalNozzleHoursForm
 from .filters import NozzleFilter, OrderFilter, OfferFilter
 
 from .functions import translate_type_name, calculate_nozzle_welding_material_and_hours
@@ -109,11 +109,14 @@ def nozzle_calculation_details_view(request, nozzle_id, calculation_id):
                    + calculation.cutting_plates_hours + calculation.bending_hours
                    + calculation.rolling_profiles_hours)
 
-    calculations = calculation.additionalnozzlehours_set.order_by('group')
+    additional_nozzle_hours = calculation.additionalnozzlehours_set.order_by('group')
 
     additional_hours = AdditionalNozzleHours.objects.filter(calculation=calculation).aggregate(total_hours=Sum('additional_hours_amount'))
 
-    sum_of_all_hours = additional_hours['total_hours'] + total_hours
+    try:
+        sum_of_all_hours = additional_hours['total_hours'] + total_hours
+    except:
+        sum_of_all_hours = total_hours
 
     additional_assembly_hours = AdditionalNozzleHours.objects.filter(
         calculation=calculation, group='assembly_hours').\
@@ -191,7 +194,7 @@ def nozzle_calculation_details_view(request, nozzle_id, calculation_id):
     context = {'calculation': calculation,
                'nozzle': nozzle,
                'ratio': ratio,
-               'calculations': calculations,
+               'additional_nozzle_hours': additional_nozzle_hours,
                'total_hours': total_hours,
                'additional_hours': additional_hours,
                'sum_of_all_hours': sum_of_all_hours,
@@ -232,6 +235,66 @@ def add_nozzle_calculation_confirm_view(request, nozzle_id):
                'nozzle': nozzle}
     template = 'calculator/add_nozzle_calculation_confirm.html'
 
+    return render(request, template, context)
+
+
+def add_additional_nozzle_hour(request, nozzle_id, calculation_id,):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    calculation = NozzleCalculation.objects.get(id=calculation_id)
+
+    if request.method != 'POST':
+        form = AdditionalNozzleHoursForm()
+    else:
+        form = AdditionalNozzleHoursForm(request.POST)
+        if form.is_valid():
+            new_additional_nozzle_hours = form.save(commit=False)
+            new_additional_nozzle_hours.calculation = calculation
+            new_additional_nozzle_hours = form.save()
+            return redirect('calculator:nozzle_calculation_details', nozzle.id, calculation.id)
+
+    context = {'form': form,
+               'nozzle': nozzle,
+               'calculation': calculation,
+               }
+    template = 'calculator/add_additional_nozzle_hours.html'
+
+    return render(request, template, context)
+
+
+def edit_additional_nozzle_hours(request, nozzle_id, calculation_id, additional_nozzle_hour_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    calculation = NozzleCalculation.objects.get(id=calculation_id)
+    additional_nozzle_hours = AdditionalNozzleHours.objects.get(id=additional_nozzle_hour_id)
+
+    if request.method != 'POST':
+        form = AdditionalNozzleHoursForm(instance=additional_nozzle_hours)
+    else:
+        form = AdditionalNozzleHoursForm(instance=additional_nozzle_hours, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('calculator:nozzle_calculation_details', nozzle_id, calculation_id)
+
+    context = {'form': form,
+               'nozzle': nozzle,
+               'calculation': calculation,
+               'additional_nozzle_hours': additional_nozzle_hours
+               }
+    template = 'calculator/edit_additional_nozzle_hours.html'
+
+    return render(request, template, context)
+
+
+def delete_additional_nozzle_hours(request, nozzle_id, calculation_id, additional_nozzle_hour_id):
+
+    ##### Dodać osobny widok na potwierdznie usunięcia - poniższy kod jest zbyt niebezpieczny, wystarczy, że ktoś
+    # zmodyfikuje adres url i samo będzie usuwać rekordy z bazy danych!!!!!!
+    if request.method == 'GET':
+        additional_nozzle_hours = AdditionalNozzleHours.objects.get(id=additional_nozzle_hour_id)
+        additional_nozzle_hours.delete()
+        return redirect('calculator:nozzle_calculation_details', nozzle_id, calculation_id)
+
+    context = {}
+    template = 'calculator/index.html'
     return render(request, template, context)
 
 
