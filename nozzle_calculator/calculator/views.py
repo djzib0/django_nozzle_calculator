@@ -228,7 +228,26 @@ def add_nozzle_calculation_confirm_view(request, nozzle_id):
     nozzle = Nozzle.objects.get(id=nozzle_id)
     test_result = calculate_nozzle_welding_material_and_hours(nozzle)
 
-    new_calculation = NozzleCalculation(nozzle=nozzle, welding_hours=test_result)
+    # tutaj dodać obliczenia, a następnie przekazać je do poniższej kalkulacji
+    new_calculation = NozzleCalculation(nozzle=nozzle,
+                                        welding_hours=test_result,
+                                        diameter=nozzle.diameter,
+                                        profile=nozzle.profile,
+                                        drawing_number=nozzle.drawing_number,
+                                        profile_height=nozzle.profile_height,
+                                        inner_ring_type=nozzle.inner_ring_type,
+                                        inner_ring_thickness_propeller_zone=nozzle.inner_ring_thickness_propeller_zone,
+                                        inner_ring_thickness_inlet_zone=nozzle.inner_ring_thickness_inlet_zone,
+                                        inner_ring_thickness_outlet_zone=nozzle.inner_ring_thickness_outlet_zone,
+                                        ribs_quantity=nozzle.ribs_quantity,
+                                        ribs_thickness=nozzle.ribs_thickness,
+                                        segments_quantity=nozzle.segments_quantity,
+                                        segments_thickness=nozzle.segments_thickness,
+                                        has_headbox=nozzle.has_headbox,
+                                        has_outlet_ring=nozzle.has_outlet_ring,
+                                        theoretical_weight=nozzle.theoretical_weight,
+                                        real_weight=nozzle.real_weight,
+                                        )
     new_calculation.save()
 
     context = {'test_result': test_result,
