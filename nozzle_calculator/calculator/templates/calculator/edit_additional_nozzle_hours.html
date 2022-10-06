@@ -2,11 +2,42 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'calculator:edit_additional_nozzle_hours' nozzle.id calculation.id additional_nozzle_hours.id %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Zapisz</button>
-  <a href="{% url 'calculator:nozzle_calculation_details' nozzle.id calculation.id %}"><button type="button">Zapisz</button></a>
-</form>
+<div class="content-main">
+  <div class="item-box">
+    <div class="item-header-box">
+      <p>Grupa operacji - {{ additional_nozzle_hours.get_group_display }}
+      - Ilość godzin: {{ additional_nozzle_hours.additional_hours_amount }}</p>
+    </div>
+    <div class="item-details">
+      <div class="button-box">
+        <form method="post" action="{% url 'calculator:edit_additional_nozzle_hours' nozzle.id calculation.id additional_nozzle_hours.id %}">
+          {% csrf_token %}
+          <div class="item-details-box">
+            <div>Ilość godzin:</div>
+            <div id="profile_input">{{ form.additional_hours_amount }}</div>
+          </div>
+          <div class="item-details-box">
+            <div>Grupa operacji:</div>
+            <div id="profile_input">{{ form.group }}</div>
+          </div>
+          <div class="item-details-box">
+            <div class="item-details-form-box">
+              <div class="form-box-left-col">Komentarz:</div>
+              <div class="form-box-right-col">{{ form.comment }}</div>
+            </div>
+
+          </div>
+          <div class="button-box">
+            <button type="submit" class="add-btn">Zapisz</button>
+            <a href="{% url 'calculator:nozzle_calculation_details' nozzle.id calculation.id %}">
+              <button type="button" class="cancel-btn">Anuluj</button>
+            </a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}

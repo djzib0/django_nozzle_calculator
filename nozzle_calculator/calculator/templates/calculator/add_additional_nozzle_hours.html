@@ -10,7 +10,8 @@
     </div>
     <div class="item-details">
       <div class="button-box">
-        <form method="post" action="">
+        <form method="post"
+              action="{% url 'calculator:add_additional_nozzle_hours' nozzle.id calculation.id %}">
           {% csrf_token %}
           <div class="item-details-box">
             <div>Ilość godzin:</div>
@@ -39,7 +40,5 @@
     </div>
   </div>
 </div>
-
-
 
 {% endblock content %}
