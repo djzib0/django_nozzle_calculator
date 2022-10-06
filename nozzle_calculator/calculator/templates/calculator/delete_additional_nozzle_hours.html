@@ -1,0 +1,26 @@
+{% extends 'calculator/base.html' %}
+
+{% block content %}
+<div class="content-main">
+  <div class="item-box">
+    <div class="item-header-box">
+      <p>Grupa operacji - {{ additional_nozzle_hours.get_group_display }}
+      - Ilość godzin: {{ additional_nozzle_hours.additional_hours_amount }}</p>
+    </div>
+    <div class="item-details">
+      <div class="button-box">
+        <p>Czy na pewno chcesz usunąć tę pozycję?&nbsp;&nbsp;&nbsp;</p>
+        <form method="post"
+          action="{% url 'calculator:delete_additional_nozzle_hours' nozzle.id calculation.id additional_nozzle_hours.id %}">
+          {% csrf_token %}
+          <button type="submit" class="cancel-btn">Usuń</button>
+          <a href="{% url 'calculator:nozzle_calculation_details' nozzle.id calculation.id %}">
+            <button type="button" class="add-btn">Anuluj</button>
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -80,6 +80,25 @@ class NozzleCalculation(models.Model):
     rolling_profiles_hours = models.PositiveIntegerField(default=0, blank=True, null=True)
     comment = models.TextField(default='', blank=True, null=True)
 
+    #copy values from Nozzle object
+    diameter = models.PositiveIntegerField(null=False, blank=False)
+    profile = models.CharField(max_length=32, null=False, blank=False)
+    drawing_number = models.CharField(max_length=32, blank=True)
+    profile_height = models.PositiveIntegerField(null=False, blank=False)
+    inner_ring_type = models.CharField(max_length=32, null=False, blank=False)
+    inner_ring_thickness_propeller_zone = models.PositiveIntegerField(null=False, blank=False)
+    inner_ring_thickness_inlet_zone = models.PositiveIntegerField(null=False, blank=False)
+    inner_ring_thickness_outlet_zone = models.PositiveIntegerField(null=False, blank=False)
+    # if ring thickness in inlet/outlet zone is different than in propeller zone, calculate extra welding seam
+    ribs_quantity = models.PositiveIntegerField(null=False, blank=False)
+    ribs_thickness = models.PositiveIntegerField(null=False, blank=False)
+    segments_quantity = models.PositiveIntegerField(null=False, blank=False)
+    segments_thickness = models.PositiveIntegerField(null=False, blank=False)
+    has_headbox = models.BooleanField(null=False, blank=False)
+    has_outlet_ring = models.BooleanField(null=False, blank=False)
+    theoretical_weight = models.PositiveIntegerField(blank=True, default=0)
+    real_weight = models.PositiveIntegerField(blank=True, default=0)
+
     def __str__(self):
         return f'Kalkulacja nr {self.id} - dotyczy dyszy {self.nozzle.id}'
 
@@ -100,9 +119,11 @@ class AdditionalNozzleHours(models.Model):
 
     calculation = models.ForeignKey(NozzleCalculation, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
-    additional_hours_amount = models.PositiveIntegerField(default=0, blank=True)
+    additional_hours_amount = models.PositiveIntegerField(blank=False)
     comment = models.TextField(blank=False, max_length=200)
     group = models.CharField(max_length=40, blank=True, null=True, choices=GROUP)
+
+
 
 
 

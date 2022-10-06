@@ -75,7 +75,6 @@ hr {
     height: 1px;
     background: #333;
     background-image: linear-gradient(to right, #ccc, #333, #ccc);
-
 }
 
 /* text style */
@@ -165,8 +164,18 @@ hr {
     justify-content: space-between;
     align-items: center;
     padding: 0.125em 1em;
-    height: 1.75em;
+    /* height: 1.75em; */
 }
+
+.item-details-form-box {
+  display: flex
+}
+
+.form-box-left-col {
+  width: 10em;
+}
+
+
 
 .item-details-table {
     padding: 0.25em 0;
@@ -308,4 +317,6 @@ hr {
 .wide_form {
     width: 12.75em;
 }
+
+
 

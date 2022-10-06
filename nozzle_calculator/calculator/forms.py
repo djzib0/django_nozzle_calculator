@@ -1,9 +1,9 @@
 from django import forms
 
+
 from .models import Nozzle, Order, Offer, NozzleCalculation, AdditionalNozzleHours
 
 from datetime import datetime
-
 from .functions import possible_year
 
 
@@ -87,6 +87,21 @@ class OfferForm(forms.ModelForm):
 
 
 class AdditionalNozzleHoursForm(forms.ModelForm):
+    GROUP = [('assembly_hours', 'Montaż'),
+             ('welding_hours', 'Spawanie'),
+             ('spinning_hours', 'Wyoblanie'),
+             ('small_machining_hours', 'Obróbka lekka'),
+             ('medium_machining_hours', 'Obróbka średnia'),
+             ('tos_machining_hours', 'Obróbka TOS'),
+             ('cutting_plates_hours', 'Palenie blach'),
+             ('bending_hours', 'Gięcie blach'),
+             ('rolling_profiles_hours', 'Walcowanie rur'),
+             ]
+
+    group = forms.ChoiceField(choices=GROUP, widget=forms.Select(attrs={"class": "wide_form",
+                                                                        'style': 'width: 23.75em;'}))
+
+
     class Meta:
         model = AdditionalNozzleHours
         fields = {'additional_hours_amount', 'comment', 'group'}
@@ -94,3 +109,10 @@ class AdditionalNozzleHoursForm(forms.ModelForm):
                   'comment': 'Uwagi',
                   'group': 'Rodzaj operacji'}
         exclude = ['calculation', 'date_created']
+        widgets = {
+            'additional_hours_amount': forms.TextInput(attrs={
+                'class': "form_control",
+                'style': 'width: 23.125em;',
+                'placeholder': ''
+            }),
+        }

@@ -285,18 +285,20 @@ def edit_additional_nozzle_hours(request, nozzle_id, calculation_id, additional_
 
 
 def delete_additional_nozzle_hours(request, nozzle_id, calculation_id, additional_nozzle_hour_id):
+    nozzle = Nozzle.objects.get(id=nozzle_id)
+    calculation = NozzleCalculation.objects.get(id=calculation_id)
+    additional_nozzle_hours = AdditionalNozzleHours.objects.get(id=additional_nozzle_hour_id)
 
-    ##### Dodać osobny widok na potwierdznie usunięcia - poniższy kod jest zbyt niebezpieczny, wystarczy, że ktoś
-    # zmodyfikuje adres url i samo będzie usuwać rekordy z bazy danych!!!!!!
-    if request.method == 'GET':
-        additional_nozzle_hours = AdditionalNozzleHours.objects.get(id=additional_nozzle_hour_id)
+    if request.method == 'POST':
         additional_nozzle_hours.delete()
         return redirect('calculator:nozzle_calculation_details', nozzle_id, calculation_id)
 
-    context = {}
-    template = 'calculator/index.html'
+    context = {'nozzle': nozzle,
+               'calculation': calculation,
+               'additional_nozzle_hours': additional_nozzle_hours,
+               }
+    template = 'calculator/delete_additional_nozzle_hours.html'
     return render(request, template, context)
-
 
 
 def add_nozzle(request):
