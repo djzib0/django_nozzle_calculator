@@ -34,11 +34,15 @@
             {% language 'pl' %}
             <td>{{ calculation.date_created|date:"d M Y" }}</td>
             {% endlanguage %}
+            {% if total_hours != None %}
             <td>{{ calculation.total_hours }}</td>
+            {% else %}
+            <td>&nbsp; -</td>
+            {% endif %}
             {% if calculation.total_additional_hours %}
               <td>{{ calculation.total_additional_hours }}</td>
             {% else %}
-              <td>&nbsp -</td>
+              <td>&nbsp; -</td>
             {% endif %}
             <td><a href="{% url 'calculator:nozzle_calculation_details' nozzle_id=nozzle.id calculation_id=calculation.id %}">
               <button class="show-btn">Pokaż</button></a></td>

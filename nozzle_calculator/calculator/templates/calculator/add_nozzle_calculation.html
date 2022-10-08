@@ -2,7 +2,87 @@
 
 {% block content %}
 
-{{ test_result }}
+<div class="content-main">
+  <div class="item-box">
+    <div class="item-header-box">
+      <p>Czy chcesz dodać nową kalkulację dla tej dyszy?</p>
+    </div>
+
+    <div class="item-details">
+      <div class="button-box">
+<!--        <form>-->
+<!--        <input type="button" class="action-btn" value="Wróć" onclick="history.back()"-->
+<!--        </form>-->
+        <form method="post">
+          {% csrf_token %}
+          <a href="{% url 'calculator:add_nozzle_calculation_confirm' nozzle.id %}"><button type="submit" class="add-btn">Zapisz</button></a>
+          <a href="{% url 'calculator:nozzle_calculations' nozzle.id %}"><button class="cancel-btn">Anuluj</button></a>
+        </form>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Nr rysunku:</p>
+        <p class="item-detail-value">{{ nozzle.drawing_number }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Średnica: </p>
+        <p class="item-detail-value">{{ nozzle.diameter }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Wysokość:</p>
+        <p class="item-detail-value">{{ nozzle.profile_height }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Ciężar wg zapytania ofertowego:</p>
+        <p class="item-detail-value">{{ nozzle.theoretical_weight }}kg</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Ciężar rzeczywisty:</p>
+        <p class="item-detail-value">{{ nozzle.real_weight }}kg</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Pierścień wewnętrzny:</p>
+        <p class="item-detail-value">{{ type_name }}</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Grubość pierścienia kawitacyjnego:</p>
+        <p class="item-detail-value">{{ nozzle.inner_ring_thickness_propeller_zone }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Grubość wlotu:</p>
+        <p class="item-detail-value">{{ nozzle.inner_ring_thickness_inlet_zone }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Grubość wylotu:</p>
+        <p class="item-detail-value">{{ nozzle.inner_ring_thickness_outlet_zone }}mm</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Grubość i ilość żeber:</p>
+        <p class="item-detail-value">{{ nozzle.ribs_thickness }}mm - {{ nozzle.ribs_quantity}}szt.</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Grubość i ilość półek:</p>
+        <p class="item-detail-value">{{ nozzle.segments_thickness }}mm - {{ nozzle.segments_quantity}}szt.</p>
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Dysza ze skrzynią?</p>
+        {% if nozzle.has_headbox == True %}
+         <p class="item-detail-value">Tak</p>
+        {% else %}
+          <p class="item-detail-value">Nie</p>
+        {% endif %}
+      </div>
+      <div class="item-details-box">
+        <p class="item-detail-name">Dysza z pierścieniem wylotowym?</p>
+        {% if nozzle.has_outlet_ring == True %}
+         <p class="item-detail-value">Tak</p>
+        {% else %}
+          <p class="item-detail-value">Nie</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
 <a href="{% url 'calculator:add_nozzle_calculation_confirm' nozzle.id %}"><button class="action-btn">Zapisz</button></a>
 <a href="{% url 'calculator:nozzle_calculations' nozzle.id %}"><button class="cancel-btn">Anuluj</button></a>
 
