@@ -223,7 +223,7 @@ def add_nozzle_calculation_view(request, nozzle_id):
 
     if request.method == 'POST':
         new_calculation = NozzleCalculation(nozzle=nozzle,
-                                            welding_hours=28,
+                                            welding_hours=test_result,
                                             diameter=nozzle.diameter,
                                             profile=nozzle.profile,
                                             drawing_number=nozzle.drawing_number,
