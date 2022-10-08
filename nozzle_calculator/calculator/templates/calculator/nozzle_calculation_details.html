@@ -20,7 +20,11 @@
       </div>
       <div class="item-details-box">
         <p class="item-detail-name">Suma godzin dodatkowych:</p>
+        {% if additional_hours.total_hours == None %}
+        <p class="item-detail-value">0</p>
+        {% else %}
         <p class="item-detail-value">{{ additional_hours.total_hours }}</p>
+        {% endif %}
       </div>
 
       <hr>
