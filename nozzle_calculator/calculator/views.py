@@ -89,6 +89,9 @@ def nozzle_calculations_view(request, nozzle_id):
             + F('medium_machining_hours') + F('tos_machining_hours') + F('cutting_plates_hours')
             + F('bending_hours') + F('rolling_profiles_hours'))
 
+    for calculation in calculations:
+        print(calculation.total_hours)
+
     template = 'calculator/nozzle_calculations.html'
     context = {'nozzle': nozzle,
                'calculations': calculations,
@@ -220,7 +223,7 @@ def add_nozzle_calculation_view(request, nozzle_id):
 
     if request.method == 'POST':
         new_calculation = NozzleCalculation(nozzle=nozzle,
-                                            welding_hours=test_result,
+                                            welding_hours=28,
                                             diameter=nozzle.diameter,
                                             profile=nozzle.profile,
                                             drawing_number=nozzle.drawing_number,
@@ -240,7 +243,6 @@ def add_nozzle_calculation_view(request, nozzle_id):
                                             )
         new_calculation.save()
         return redirect('calculator:nozzle_calculations', nozzle.id)
-
 
     context = {'test_result': test_result,
                'nozzle': nozzle,

@@ -27,17 +27,17 @@
               <th></th>
             </tr>
           </thead>
-          {% for calculation in calculations%}
+          {% for calculation in calculations %}
           <tr>
             <td>{{ calculation.id }}</td>
             {% load i18n %}
             {% language 'pl' %}
             <td>{{ calculation.date_created|date:"d M Y" }}</td>
             {% endlanguage %}
-            {% if total_hours != None %}
-            <td>{{ calculation.total_hours }}</td>
+            {% if calculation.total_hours %}
+              <td>{{ calculation.total_hours }}</td>
             {% else %}
-            <td>&nbsp; -</td>
+              <td>&nbsp; -</td>
             {% endif %}
             {% if calculation.total_additional_hours %}
               <td>{{ calculation.total_additional_hours }}</td>

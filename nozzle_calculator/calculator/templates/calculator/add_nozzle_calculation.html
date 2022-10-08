@@ -15,7 +15,7 @@
 <!--        </form>-->
         <form method="post">
           {% csrf_token %}
-          <a href="{% url 'calculator:add_nozzle_calculation_confirm' nozzle.id %}"><button type="submit" class="add-btn">Zapisz</button></a>
+          <a href="{% url 'calculator:add_nozzle_calculation' nozzle.id %}"><button type="submit" class="add-btn">Zapisz</button></a>
           <a href="{% url 'calculator:nozzle_calculations' nozzle.id %}"><button class="cancel-btn">Anuluj</button></a>
         </form>
       </div>
@@ -82,8 +82,5 @@
     </div>
   </div>
 </div>
-
-<a href="{% url 'calculator:add_nozzle_calculation_confirm' nozzle.id %}"><button class="action-btn">Zapisz</button></a>
-<a href="{% url 'calculator:nozzle_calculations' nozzle.id %}"><button class="cancel-btn">Anuluj</button></a>
 
 {% endblock content %}
