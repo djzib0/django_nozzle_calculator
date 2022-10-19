@@ -1,4 +1,6 @@
 
+import math
+
 diameter = 3030
 profile = 'Optima'
 profile_height = 1515
@@ -39,23 +41,22 @@ def calc_inner_ring_welding_time_before_spinning(nozzle_height, ring_propeller_z
 
 def calc_welding_mat_segments_with_inner_ring(nozzle_diameter, segments_qty, segments_thick):
     """Calculates amount of welding wire required for welding segments with inner ring"""
-    WELDING_MATERIAL_AMOUNT = {8: 0.55,
-                               10: 0.75,
-                               12: 0.93,
-                               14: 1.17,
-                               15: 1.3,
-                               16: 1.44,
-                               18: 1.91,
-                               20: 2.25,
-                               22: 2.61,
-                               25: 3.21,
-                               28: 3.81,
-                               30: 4.33,
+    WELDING_MATERIAL_AMOUNT = {8: 0.12,
+                               10: 0.2,
+                               12: 0.31,
+                               14: 0.46,
+                               15: 0.51,
+                               16: 0.55,
+                               18: 0.65,
+                               20: 0.65,
+                               22: 0.81,
+                               25: 0.99,
+                               30: 1.2
                                }
     nozzle_diameter = nozzle_diameter / 1000
-    result = nozzle_diameter * segments_qty * WELDING_MATERIAL_AMOUNT[segments_thick]
+    result = nozzle_diameter * math.pi * segments_qty * 2 * WELDING_MATERIAL_AMOUNT[segments_thick]
     result = round(result, 1)
-    print(result)
+    print("Wynik: ", result)
     return result
 
 
