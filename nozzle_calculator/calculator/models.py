@@ -32,6 +32,7 @@ class Nozzle(models.Model):
     ribs_thickness = models.PositiveIntegerField(null=False, blank=False)
     segments_quantity = models.PositiveIntegerField(null=False, blank=False)
     segments_thickness = models.PositiveIntegerField(null=False, blank=False)
+    outside_cone_thickness = models.PositiveIntegerField(blank=True, null=True, default=0)
     has_headbox = models.BooleanField(null=False, blank=False)
     has_outlet_ring = models.BooleanField(null=False, blank=False)
     theoretical_weight = models.PositiveIntegerField(blank=True, default=0)
