@@ -32,8 +32,8 @@ def calc_inner_ring_welding_time_before_spinning(nozzle_height, ring_propeller_z
                                                  ring_inlet_zone, ring_outlet_zone):
     """Calculates amount of time required for welding inner ring before spinning"""
 
-    welding_wire_amount = calc_inner_ring_weld_mat_before_spinning(nozzle_height, ring_propeller_zone,
-                                         ring_inlet_zone, ring_outlet_zone)
+    welding_wire_amount = calc_inner_ring_weld_mat_before_spinning(nozzle_height, ring_propeller_zone, ring_inlet_zone,
+                                                                   ring_outlet_zone)
 
     # print(welding_wire_amount * 0.7, "test")
     return round((welding_wire_amount * 0.7), 1)
@@ -58,6 +58,16 @@ def calc_welding_mat_segments_with_inner_ring(nozzle_diameter, segments_qty, seg
     result = round(result, 1)
     print("Wynik: ", result)
     return result
+
+
+def calc_welding_time_segments_with_inner_ring(nozzle_diameter, segments_qty, segments_thick):
+    """Calculates amount of time required for welding inner ring before spinning"""
+
+    welding_wire_amount = calc_welding_mat_segments_with_inner_ring(nozzle_diameter, segments_qty, segments_thick)
+
+    # print(welding_wire_amount * 0.7, "test")
+    print("Godziny: ", round((welding_wire_amount * 0.7), 1))
+    return round((welding_wire_amount * 0.7), 1)
 
 
 
@@ -87,5 +97,7 @@ calc_inner_ring_welding_time_before_spinning(profile_height, inner_ring_thicknes
 
 
 calc_welding_mat_segments_with_inner_ring(diameter, segments_quantity, segments_thickness)
+
+calc_welding_time_segments_with_inner_ring(diameter, segments_quantity, segments_thickness)
 
 
